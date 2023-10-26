@@ -8,7 +8,9 @@ class App extends Component {
     error: null,
     isLoaded: false,
     items: null as SearchItem[] | null,
-    name: '',
+    name: localStorage.getItem('search-value')
+      ? localStorage.getItem('search-value')
+      : '',
   };
 
   stateUpdate() {
@@ -20,7 +22,6 @@ class App extends Component {
             isLoaded: true,
             items: result.results,
           });
-          console.log(result);
         },
         (error) => {
           this.setState({
@@ -49,17 +50,15 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <div className="wrapper">
+        <h1>Rick and Morty</h1>
         <SearchInput setName={this.setName.bind(this)} />
         {!this.state.isLoaded ? (
           <div>LOADING</div>
         ) : (
-          <SearchResults
-            items={this.state.items}
-            isLoaded={this.state.isLoaded}
-          />
+          <SearchResults items={this.state.items} />
         )}
-      </>
+      </div>
     );
   }
 }
