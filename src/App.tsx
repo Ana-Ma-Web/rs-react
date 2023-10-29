@@ -37,7 +37,6 @@ class App extends Component {
       name: str,
       isLoaded: false,
     });
-    console.log('setName', this.state);
   }
 
   componentDidMount() {
@@ -46,12 +45,18 @@ class App extends Component {
 
   componentDidUpdate() {
     if (!this.state.isLoaded) this.stateUpdate();
+    if (this.state.error) throw new Error('Click to error button 🪤');
+  }
+
+  handleClickError() {
+    this.setState({ error: true });
   }
 
   render() {
     return (
       <div className="wrapper">
         <h1>Rick and Morty</h1>
+        <button onClick={this.handleClickError.bind(this)}>Error</button>
         <SearchInput setName={this.setName.bind(this)} />
         {!this.state.isLoaded ? (
           <div>LOADING</div>

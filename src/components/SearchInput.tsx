@@ -9,13 +9,15 @@ export default class SearchInput extends Component<{
 
   componentDidMount() {
     this.setState({
-      value: localStorage.getItem('search-value'),
+      value: localStorage.getItem('search-value')
+        ? localStorage.getItem('search-value')
+        : '',
     });
   }
 
   handleChange(e: ChangeEvent<HTMLInputElement>) {
     this.setState({
-      value: e.target.value,
+      value: e.target.value ? e.target.value : '',
     });
   }
 
