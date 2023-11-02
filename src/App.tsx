@@ -1,71 +1,58 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchInput from './components/SearchInput';
 import SearchResults from './components/SearchResults';
 import { SearchItem } from './types';
 
-class App extends Component {
-  state = {
-    error: null,
-    isLoaded: false,
-    items: null as SearchItem[] | null,
-    name: localStorage.getItem('search-value')
+export default function App() {
+  const [error, setError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState(null as SearchItem[] | null);
+  const [name, setName] = useState(
+    localStorage.getItem('search-value')
       ? localStorage.getItem('search-value')
-      : '',
-  };
+      : ''
+  );
 
-  stateUpdate() {
-    fetch(`https://rickandmortyapi.com/api/episode/?name=${this.state.name}`)
+  useEffect(() => {
+    if (!isLoaded) updateItems();
+  }, [name]);
+
+  useEffect(() => {
+    if (error) throw new Error('Click to error button 🪤');
+  }, [error]);
+
+  const updateItems = () => {
+    fetch(`https://rickandmortyapi.com/api/episode/?name=${name}`)
       .then((res) => res.json())
       .then(
         (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result.results,
-          });
+          setIsLoaded(true);
+          setItems(result.results);
         },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error,
-          });
+        () => {
+          setIsLoaded(true);
+          setError(true);
         }
       );
-  }
+  };
 
-  setName(str: string) {
-    this.setState({
-      name: str,
-      isLoaded: false,
-    });
-  }
+  const setSearchValue = (str: string) => {
+    if (name !== str) {
+      setName(str);
+      setIsLoaded(false);
+    }
+  };
 
-  componentDidMount() {
-    this.stateUpdate();
-  }
+  const handleClickError = () => {
+    setError(true);
+  };
 
-  componentDidUpdate() {
-    if (!this.state.isLoaded) this.stateUpdate();
-    if (this.state.error) throw new Error('Click to error button 🪤');
-  }
-
-  handleClickError() {
-    this.setState({ error: true });
-  }
-
-  render() {
-    return (
-      <div className="wrapper">
-        <h1>Rick and Morty</h1>
-        <button onClick={this.handleClickError.bind(this)}>Error</button>
-        <SearchInput setName={this.setName.bind(this)} />
-        {!this.state.isLoaded ? (
-          <div>LOADING</div>
-        ) : (
-          <SearchResults items={this.state.items} />
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className="wrapper">
+      <h1>Rick and Morty</h1>
+      <button onClick={handleClickError}>Error</button>
+      <SearchInput setName={setSearchValue} />
+      {!isLoaded ? <div>LOADING</div> : <SearchResults items={items} />}
+    </div>
+  );
 }
-
-export default App;
