@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchItem } from '../types';
+import { SearchItem } from '../../types';
 
 export default function SearchResults(props: { items: SearchItem[] | null }) {
   return (

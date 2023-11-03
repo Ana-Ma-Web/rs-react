@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import SearchInput from './components/SearchInput';
-import SearchResults from './components/SearchResults';
+import SearchInput from './components/search/SearchInput';
+import SearchResults from './components/search/SearchResults';
 import { SearchItem } from './types';
 
 export default function App() {
