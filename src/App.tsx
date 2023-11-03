@@ -22,12 +22,13 @@ export default function App() {
   }, [error]);
 
   const updateItems = () => {
-    fetch(`https://rickandmortyapi.com/api/episode/?name=${name}`)
+    fetch(`https://api.jikan.moe/v4/characters?limit=25&page=1&q=${name}`)
       .then((res) => res.json())
       .then(
         (result) => {
+          console.log('result', result);
           setIsLoaded(true);
-          setItems(result.results);
+          setItems(result.data);
         },
         () => {
           setIsLoaded(true);
@@ -49,7 +50,7 @@ export default function App() {
 
   return (
     <div className="wrapper">
-      <h1>Rick and Morty</h1>
+      <h1>Anime 💮</h1>
       <button onClick={handleClickError}>Error</button>
       <SearchInput setName={setSearchValue} />
       {!isLoaded ? <div>LOADING</div> : <SearchResults items={items} />}

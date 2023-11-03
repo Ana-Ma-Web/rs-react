@@ -11,8 +11,7 @@ export default function SearchResults(props: { items: SearchItem[] | null }) {
           <div className="card" key={e.url}>
             <div className="card__name">{e.name}</div>
             <div className="card__description">
-              <div className="card__date">Date: {e.air_date}</div>
-              <div className="card__episode">Episode: {e.episode}</div>
+              <img src={e.images.jpg.image_url}></img>
             </div>
           </div>
         ))
