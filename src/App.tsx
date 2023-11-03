@@ -6,7 +6,7 @@ import { PaginationData, SearchItem } from './types';
 
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [searchName, setSearchName] = useState(
+  const [searchRequest, setSearchRequest] = useState(
     localStorage.getItem('search-value')
       ? localStorage.getItem('search-value')
       : ''
@@ -23,7 +23,7 @@ export default function App() {
   useEffect(() => {
     if (!isLoaded) {
       fetch(
-        `https://api.jikan.moe/v4/characters?limit=25&page=1&q=${searchName}`
+        `https://api.jikan.moe/v4/characters?limit=25&page=1&q=${searchRequest}`
       )
         .then((res) => res.json())
         .then(
@@ -43,15 +43,15 @@ export default function App() {
           }
         );
     }
-  }, [searchName, isLoaded]);
+  }, [searchRequest, isLoaded]);
 
   useEffect(() => {
     if (error) throw new Error('Click to error button 🪤');
   }, [error]);
 
   const setSearchValue = (str: string) => {
-    if (searchName !== str) {
-      setSearchName(str);
+    if (searchRequest !== str) {
+      setSearchRequest(str);
       setIsLoaded(false);
       setSearchErrorMessage('');
     }
