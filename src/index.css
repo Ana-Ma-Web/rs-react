@@ -85,6 +85,7 @@ button:focus-visible {
   font-size: 10px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .card:hover {
@@ -96,6 +97,10 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.card__description img {
+  max-width: 100%;
 }
 
 .card__name {
