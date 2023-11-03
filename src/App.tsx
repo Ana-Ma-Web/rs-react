@@ -51,7 +51,7 @@ export default function App() {
   return (
     <div className="wrapper">
       <h1>Anime 💮</h1>
-      <button onClick={handleClickError}>Error</button>
+      <button onClick={handleClickError}>ERROR BUTTON</button>
       <SearchInput setName={setSearchValue} />
       {!isLoaded ? <div>LOADING</div> : <SearchResults items={items} />}
     </div>
