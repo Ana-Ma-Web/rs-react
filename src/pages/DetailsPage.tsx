@@ -12,7 +12,6 @@ export default function DetailsPage() {
       fetch(`https://api.jikan.moe/v4/characters/${id}`)
         .then((res) => res.json())
         .then((result: { data: ItemDetails }) => {
-          console.log('DetailsPage', result);
           setData(result.data);
           setIsLoaded(true);
         });
@@ -23,7 +22,7 @@ export default function DetailsPage() {
   return (
     <>
       <div className="details">
-        <Link to="/"></Link>
+        <Link to="/1/1/lili"></Link>
         <div className="details__wrapper">
           {!isLoaded ? (
             <>

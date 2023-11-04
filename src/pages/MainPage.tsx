@@ -32,7 +32,6 @@ export default function SearchBar(props: { error: boolean }) {
             status: string;
             message: string;
           }) => {
-            console.log('result', result);
             setIsLoaded(true);
             setItems(result.data);
             setPaginationData(result.pagination);

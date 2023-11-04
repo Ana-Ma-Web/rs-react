@@ -8,12 +8,14 @@ export default function Layout(props: {
   setIsError: (isError: boolean) => void;
 }) {
   return (
-    <div className="wrapper">
-      <main>
-        <Header setIsError={props.setIsError} />
-        <MainPage error={props.isError} />
-      </main>
+    <>
+      <div className="wrapper">
+        <main>
+          <Header setIsError={props.setIsError} />
+          <MainPage error={props.isError} />
+        </main>
+      </div>
       <Outlet />
-    </div>
+    </>
   );
 }

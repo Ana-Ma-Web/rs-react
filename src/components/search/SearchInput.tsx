@@ -1,11 +1,14 @@
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function SearchInput(props: { setName: (str: string) => void }) {
   const [value, setValue] = useState('');
+  const { search } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const searchValue = localStorage.getItem('search-value');
-    const str = searchValue ? searchValue : '';
+    const str = search ? search : '';
+    props.setName(str);
     setValue(str);
   }, []);
 
@@ -15,6 +18,7 @@ export default function SearchInput(props: { setName: (str: string) => void }) {
 
   const handleSubmit = () => {
     if (value !== null) {
+      navigate(`/1/1/${value}`);
       props.setName(value);
       localStorage.setItem('search-value', value);
     }

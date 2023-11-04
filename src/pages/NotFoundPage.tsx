@@ -6,7 +6,7 @@ export default function NotFoundPage() {
     <>
       <div>404 🔎</div>
       <span>Return to </span>
-      <Link to="/">home</Link>
+      <Link to="/1/10/lili">home</Link>
     </>
   );
 }

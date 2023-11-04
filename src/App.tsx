@@ -3,8 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import DetailsPage from './pages/DetailsPage';
 import NotFoundPage from './pages/NotFoundPage';
-// import { BrowserRouter, RouterProvider } from 'react-router-dom';
-// import router from './router/Router';
 
 export default function App() {
   const [isError, setIsError] = useState(false);
@@ -16,12 +14,15 @@ export default function App() {
   return (
     <Routes>
       <Route
-        path="/"
+        path="/:page/:limit/:search"
         element={<Layout isError={isError} setIsError={setIsError} />}
       >
-        <Route path="/details/:id" element={<DetailsPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route
+          path="/:page/:limit/:search/details/:id"
+          element={<DetailsPage />}
+        />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

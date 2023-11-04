@@ -4,7 +4,7 @@ import { SearchItem } from '../../types';
 
 function Card(props: { name: string; img: string; id: string }) {
   return (
-    <Link to={`/details/${props.id}`}>
+    <Link to={`/1/1/lili/details/${props.id}`}>
       <div className="card">
         <div className="card__name">{props.name}</div>
         <div className="card__description">

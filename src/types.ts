@@ -34,3 +34,9 @@ export interface ItemDetails {
   mal_id: string;
   name_kanji: string | null;
 }
+
+export interface PathData {
+  page: number;
+  limit: number;
+  search: string;
+}
