@@ -1,4 +1,5 @@
 export interface SearchItem {
+  mal_id: string;
   name: string;
   about: string | null;
   url: string;

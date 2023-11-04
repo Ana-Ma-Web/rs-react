@@ -19,7 +19,7 @@ export default function App() {
         path="/"
         element={<Layout isError={isError} setIsError={setIsError} />}
       >
-        <Route path="/details" element={<DetailsPage />} />
+        <Route path="/details/:id" element={<DetailsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
