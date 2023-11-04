@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Pagination from '../components/pagination/Pagination';
 import SearchInput from '../components/search/SearchInput';
 import SearchResults from '../components/search/SearchResults';
 import { PaginationData, SearchItem } from '../types';
 
 export default function SearchBar(props: { error: boolean }) {
+  const { page, limit } = useParams();
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [searchRequest, setSearchRequest] = useState(
     localStorage.getItem('search-value')
       ? localStorage.getItem('search-value')
       : ''
   );
-  const [activeLimit, setActiveLimit] = useState(10);
+  const [activeLimit, setActiveLimit] = useState(
+    limit !== undefined ? Number(limit) : 10
+  );
+  const [activePage, setActivePage] = useState(page ? Number(page) : 1);
 
   const [searchErrorMessage, setSearchErrorMessage] = useState('');
 
@@ -23,7 +29,7 @@ export default function SearchBar(props: { error: boolean }) {
   useEffect(() => {
     if (!isLoaded) {
       fetch(
-        `https://api.jikan.moe/v4/characters?limit=${activeLimit}&page=1&q=${searchRequest}`
+        `https://api.jikan.moe/v4/characters?limit=${activeLimit}&page=${activePage}&q=${searchRequest}`
       )
         .then((res) => res.json())
         .then(
@@ -42,7 +48,11 @@ export default function SearchBar(props: { error: boolean }) {
           }
         );
     }
-  }, [searchRequest, isLoaded, activeLimit]);
+  }, [isLoaded, activeLimit, activePage]);
+
+  useEffect(() => {
+    setActivePage(1);
+  }, [searchRequest]);
 
   const setSearchValue = (str: string) => {
     if (searchRequest !== str) {
@@ -62,6 +72,7 @@ export default function SearchBar(props: { error: boolean }) {
             paginationData={paginationData}
             activeLimit={activeLimit}
             setActiveLimit={setActiveLimit}
+            setActivePage={setActivePage}
             setIsLoaded={setIsLoaded}
           />
           <SearchResults items={items} />

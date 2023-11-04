@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { ItemDetails } from '../types';
 
 export default function DetailsPage() {
+  const { page, limit, search } = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setData] = useState(null as ItemDetails | null);
   const id = useParams().id;
@@ -22,7 +23,7 @@ export default function DetailsPage() {
   return (
     <>
       <div className="details">
-        <Link to="/1/1/lili"></Link>
+        <Link to={`/${page}/${limit}/${search}`}></Link>
         <div className="details__wrapper">
           {!isLoaded ? (
             <>

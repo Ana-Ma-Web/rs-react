@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 export default function SearchInput(props: { setName: (str: string) => void }) {
   const [value, setValue] = useState('');
-  const { page, limit, search } = useParams();
+  const { limit, search } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function SearchInput(props: { setName: (str: string) => void }) {
 
   const handleSubmit = () => {
     if (value !== null) {
-      navigate(`/${page}/${limit}/${value}`);
+      navigate(`/1/${limit}/${value}`);
       props.setName(value);
       localStorage.setItem('search-value', value);
     }
