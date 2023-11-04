@@ -59,7 +59,6 @@ export default function Pagination(props: {
     <>
       {props.paginationData !== null && props.paginationData !== undefined && (
         <div className="pagination">
-          Pagination: {props.paginationData?.has_next_page.toString()}
           <button
             className="pagination__btn"
             disabled={props.paginationData.current_page === 1}
