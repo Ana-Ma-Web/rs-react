@@ -11,6 +11,7 @@ export default function SearchBar(props: { error: boolean }) {
       ? localStorage.getItem('search-value')
       : ''
   );
+  const [activeLimit, setActiveLimit] = useState(10);
 
   const [searchErrorMessage, setSearchErrorMessage] = useState('');
 
@@ -22,7 +23,7 @@ export default function SearchBar(props: { error: boolean }) {
   useEffect(() => {
     if (!isLoaded) {
       fetch(
-        `https://api.jikan.moe/v4/characters?limit=25&page=1&q=${searchRequest}`
+        `https://api.jikan.moe/v4/characters?limit=${activeLimit}&page=1&q=${searchRequest}`
       )
         .then((res) => res.json())
         .then(
@@ -41,7 +42,7 @@ export default function SearchBar(props: { error: boolean }) {
           }
         );
     }
-  }, [searchRequest, isLoaded]);
+  }, [searchRequest, isLoaded, activeLimit]);
 
   const setSearchValue = (str: string) => {
     if (searchRequest !== str) {
@@ -57,7 +58,12 @@ export default function SearchBar(props: { error: boolean }) {
         <div>LOADING</div>
       ) : (
         <>
-          <Pagination paginationData={paginationData} />
+          <Pagination
+            paginationData={paginationData}
+            activeLimit={activeLimit}
+            setActiveLimit={setActiveLimit}
+            setIsLoaded={setIsLoaded}
+          />
           <SearchResults items={items} />
           {searchErrorMessage !== '' && <div>{searchErrorMessage}</div>}
         </>
