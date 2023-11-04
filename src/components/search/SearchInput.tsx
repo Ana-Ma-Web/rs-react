@@ -10,6 +10,7 @@ export default function SearchInput(props: { setName: (str: string) => void }) {
     const str = search ? search : '';
     props.setName(str);
     setValue(str);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
