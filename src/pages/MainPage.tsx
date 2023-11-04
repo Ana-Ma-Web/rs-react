@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Pagination from './../components/pagination/Pagination';
-import SearchInput from './../components/search/SearchInput';
-import SearchResults from './../components/search/SearchResults';
-import { PaginationData, SearchItem } from './../types';
+import Pagination from '../components/pagination/Pagination';
+import SearchInput from '../components/search/SearchInput';
+import SearchResults from '../components/search/SearchResults';
+import { PaginationData, SearchItem } from '../types';
 
-export default function MainPage(props: { error: boolean }) {
+export default function SearchBar(props: { error: boolean }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [searchRequest, setSearchRequest] = useState(
     localStorage.getItem('search-value')
@@ -51,7 +51,6 @@ export default function MainPage(props: { error: boolean }) {
       setSearchErrorMessage('');
     }
   };
-
   return (
     <>
       <SearchInput setName={setSearchValue} />

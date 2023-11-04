@@ -1,10 +1,10 @@
 import React from 'react';
 
 export default function Header(props: {
-  setError: (isError: boolean) => void;
+  setIsError: (isError: boolean) => void;
 }) {
   const handleClickError = () => {
-    props.setError(true);
+    props.setIsError(true);
   };
   return (
     <header>

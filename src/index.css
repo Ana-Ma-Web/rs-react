@@ -74,6 +74,16 @@ button:focus-visible {
   max-width: 1024px;
   gap: 20px;
   margin: 0 auto;
+  position: relative;
+}
+
+.details {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #cf6ab169;
 }
 
 .search {
