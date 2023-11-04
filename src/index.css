@@ -81,15 +81,6 @@ button:focus-visible {
   position: relative;
 }
 
-.details {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: #cf6ab169;
-}
-
 .search {
   display: flex;
   gap: 20px;
@@ -130,4 +121,61 @@ button:focus-visible {
 
 .card__name {
   font-size: 16px;
+}
+
+.details {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #cf6ab169;
+}
+
+.details a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+.details__wrapper {
+  background-color: #1a1a1a;
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  bottom: 12px;
+  border-radius: 4px;
+  padding: 12px;
+  width: 200px;
+  z-index: 10;
+  overflow: auto;
+  font-size: 14px;
+}
+
+.details__loading-text {
+  text-align: center;
+  font-size: 36px;
+}
+
+.details__loading-img {
+  font-size: 64px;
+  width: 88px;
+  height: 104px;
+  margin: 0 auto;
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+  }
+}
+
+.details__wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.details__img {
+  max-width: 200px;
 }

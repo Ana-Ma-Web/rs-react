@@ -1,17 +1,18 @@
+export interface Images {
+  jpg: {
+    image_url: string;
+  };
+  webp: {
+    image_url: string;
+    small_image_url: string;
+  };
+}
 export interface SearchItem {
   mal_id: string;
   name: string;
   about: string | null;
   url: string;
-  images: {
-    jpg: {
-      image_url: string;
-    };
-    webp: {
-      image_url: string;
-      small_image_url: string;
-    };
-  };
+  images: Images;
 }
 
 export interface PaginationData {
@@ -23,4 +24,13 @@ export interface PaginationData {
     total: number;
   };
   last_visible_page: number;
+}
+
+export interface ItemDetails {
+  about: string | null;
+  name: string;
+  favorites: number;
+  images: Images;
+  mal_id: string;
+  name_kanji: string | null;
 }
