@@ -23,8 +23,15 @@ export default function DetailsPage() {
   return (
     <>
       <div className="details">
-        <Link to={`/${page}/${limit}/${search}`}></Link>
+        <Link
+          className="details__overlay"
+          to={`/${page}/${limit}/${search}`}
+        ></Link>
         <div className="details__wrapper">
+          <Link to={`/${page}/${limit}/${search}`}>
+            <button>CLOSE</button>
+          </Link>
+
           {!isLoaded ? (
             <>
               <div className="details__loading-text">LOADING</div>
