@@ -18,7 +18,7 @@ export default function SearchInput(props: { setName: (str: string) => void }) {
   };
 
   const handleSubmit = () => {
-    if (value !== null) {
+    if (value !== null && value !== search) {
       navigate(`/1/${limit}/${value}`);
       props.setName(value);
       localStorage.setItem('search-value', value);
