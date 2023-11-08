@@ -5,7 +5,7 @@ import SearchInput from '../components/search/SearchInput';
 import SearchResults from '../components/search/SearchResults';
 import { PaginationData, SearchItem } from '../types';
 
-export default function SearchBar(props: { error: boolean }) {
+export default function MainPage(props: { error: boolean }) {
   const { page, limit } = useParams();
 
   const [isLoaded, setIsLoaded] = useState(false);
