@@ -60,22 +60,32 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  color: white;
 }
 
 button:hover {
+  color: white;
   border-color: #cf6ab1;
 }
+button:disabled {
+  color: #ffffff87;
+  border-color: transparent;
+  cursor: default;
+}
 button:disabled:hover {
+  color: #ffffff87;
   border-color: transparent;
   cursor: default;
 }
 
 button:focus,
 button:focus-visible {
+  color: white;
   outline: 4px auto -webkit-focus-ring-color;
 }
 
 .btn_error {
+  color: white;
   height: 34px;
 }
 
