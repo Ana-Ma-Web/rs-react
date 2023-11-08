@@ -1,18 +1,18 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+// import { Link, useParams } from 'react-router-dom';
 import { SearchItem } from '../../types';
 
 function Card(props: { name: string; img: string; id: string }) {
-  const { page, limit, search } = useParams();
+  // const { page, limit, search } = useParams();
   return (
-    <Link to={`/${page}/${limit}/${search}/details/${props.id}`}>
-      <div className="card">
-        <div className="card__name">{props.name}</div>
-        <div className="card__description">
-          <img src={props.img}></img>
-        </div>
+    // <Link to={`/${page}/${limit}/${search}/details/${props.id}`}>
+    <div className="card">
+      <div className="card__name">{props.name}</div>
+      <div className="card__description">
+        <img src={props.img}></img>
       </div>
-    </Link>
+    </div>
+    // </Link>
   );
 }
 

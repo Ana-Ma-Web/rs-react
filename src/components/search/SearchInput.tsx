@@ -1,27 +1,33 @@
-import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, {
+  ChangeEvent,
+  Dispatch,
+  KeyboardEvent,
+  SetStateAction,
+  useState,
+} from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-export default function SearchInput(props: { setName: (str: string) => void }) {
-  const [value, setValue] = useState('');
-  const { limit, search } = useParams();
-  const navigate = useNavigate();
+export default function SearchInput(props: {
+  setIsLoaded: Dispatch<SetStateAction<boolean>>;
+}) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchText = searchParams.get('search');
+  const limit = searchParams.get('limit');
 
-  useEffect(() => {
-    const str = search ? search : '';
-    props.setName(str);
-    setValue(str);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [value, setValue] = useState(searchText);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value ? e.target.value : '');
   };
 
   const handleSubmit = () => {
-    if (typeof value === 'string' && value !== search) {
-      navigate(`/1/${limit}/${value}`);
-      props.setName(value);
-      localStorage.setItem('search-value', value);
+    if (typeof value === 'string') {
+      setSearchParams({
+        search: value ? value : '',
+        limit: limit ? limit : '5',
+        page: '1',
+      });
+      props.setIsLoaded(false);
     }
   };
 
@@ -34,7 +40,7 @@ export default function SearchInput(props: { setName: (str: string) => void }) {
   return (
     <div className="search">
       <input
-        value={value}
+        value={value ? value : ''}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         type="text"

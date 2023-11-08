@@ -1,23 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Pagination from '../components/pagination/Pagination';
 import SearchInput from '../components/search/SearchInput';
 import SearchResults from '../components/search/SearchResults';
 import { PaginationData, SearchItem } from '../types';
 
 export default function MainPage(props: { error: boolean }) {
-  const { page, limit } = useParams();
-
   const [isLoaded, setIsLoaded] = useState(false);
-  const [searchRequest, setSearchRequest] = useState(
-    localStorage.getItem('search-value')
-      ? localStorage.getItem('search-value')
-      : ''
-  );
-  const [activeLimit, setActiveLimit] = useState(
-    limit !== undefined ? Number(limit) : 10
-  );
-  const [activePage, setActivePage] = useState(page ? Number(page) : 1);
 
   const [searchErrorMessage, setSearchErrorMessage] = useState('');
 
@@ -26,11 +15,18 @@ export default function MainPage(props: { error: boolean }) {
     null
   );
 
+  const [searchParams] = useSearchParams();
+
   useEffect(() => {
+    const activePage = searchParams.get('page');
+    const activeLimit = searchParams.get('limit');
+    const searchText = searchParams.get('search');
+    const str = `https://api.jikan.moe/v4/characters?limit=${
+      activeLimit ? activeLimit : 5
+    }&page=${activePage ? activePage : 1}&q=${searchText ? searchText : ''}`;
+
     if (!isLoaded) {
-      fetch(
-        `https://api.jikan.moe/v4/characters?limit=${activeLimit}&page=${activePage}&q=${searchRequest}`
-      )
+      fetch(str)
         .then((res) => res.json())
         .then(
           (result: {
@@ -48,31 +44,17 @@ export default function MainPage(props: { error: boolean }) {
           }
         );
     }
-  }, [isLoaded, activeLimit, activePage]);
+  }, [isLoaded, searchParams]);
 
-  useEffect(() => {
-    setActivePage(1);
-  }, [searchRequest]);
-
-  const setSearchValue = (str: string) => {
-    if (searchRequest !== str) {
-      setSearchRequest(str);
-      setIsLoaded(false);
-      setSearchErrorMessage('');
-    }
-  };
   return (
     <>
-      <SearchInput setName={setSearchValue} />
+      <SearchInput setIsLoaded={setIsLoaded} />
       {!isLoaded && !props.error ? (
         <div>LOADING</div>
       ) : (
         <>
           <Pagination
             paginationData={paginationData}
-            activeLimit={activeLimit}
-            setActiveLimit={setActiveLimit}
-            setActivePage={setActivePage}
             setIsLoaded={setIsLoaded}
           />
           <SearchResults items={items} />

@@ -64,14 +64,15 @@ button {
 }
 
 button:hover {
-  color: white;
   border-color: #cf6ab1;
 }
+
 button:disabled {
   color: #ffffff87;
   border-color: transparent;
   cursor: default;
 }
+
 button:disabled:hover {
   color: #ffffff87;
   border-color: transparent;
@@ -108,9 +109,26 @@ button:focus-visible {
   gap: 10px;
 }
 
-.pagination-limit-btn-active {
+.pagination__number {
+  line-height: 200%;
+}
+
+.pagination-limit-btn {
+  border-radius: 0;
+}
+
+.pagination-limit-btn:first-child {
+  border-radius: 4px 0px 0px 4px;
+}
+
+.pagination-limit-btn:last-child {
+  border-radius: 0px 4px 4px 0px;
+}
+
+.pagination-limit-btn_active {
   color: #cf6ab1;
 }
+
 .results {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

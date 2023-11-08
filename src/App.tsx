@@ -14,13 +14,10 @@ export default function App() {
   return (
     <Routes>
       <Route
-        path="/:page/:limit/:search"
+        path="/"
         element={<Layout isError={isError} setIsError={setIsError} />}
       >
-        <Route
-          path="/:page/:limit/:search/details/:id"
-          element={<DetailsPage />}
-        />
+        <Route path="/details/:id" element={<DetailsPage />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
