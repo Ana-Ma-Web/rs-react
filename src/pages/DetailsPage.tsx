@@ -5,7 +5,7 @@ import { ItemDetails } from '../types';
 export default function DetailsPage() {
   const { page, limit, search } = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [data, setData] = useState(null as ItemDetails | null);
+  const [data, setData] = useState<ItemDetails | null>(null);
   const id = useParams().id;
 
   useEffect(() => {

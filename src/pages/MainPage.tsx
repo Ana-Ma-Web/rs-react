@@ -21,9 +21,9 @@ export default function MainPage(props: { error: boolean }) {
 
   const [searchErrorMessage, setSearchErrorMessage] = useState('');
 
-  const [items, setItems] = useState(null as SearchItem[] | null);
-  const [paginationData, setPaginationData] = useState(
-    null as null | PaginationData
+  const [items, setItems] = useState<SearchItem[] | null>(null);
+  const [paginationData, setPaginationData] = useState<null | PaginationData>(
+    null
   );
 
   useEffect(() => {
