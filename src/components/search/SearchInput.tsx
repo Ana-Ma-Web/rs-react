@@ -33,7 +33,13 @@ export default function SearchInput(props: { setName: (str: string) => void }) {
 
   return (
     <div className="search">
-      <input value={value} onChange={handleChange} onKeyDown={handleKeyDown} />
+      <input
+        value={value}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        type="text"
+        aria-label="search"
+      />
       <button onClick={handleSubmit}>Search</button>
     </div>
   );
