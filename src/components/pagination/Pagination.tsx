@@ -40,6 +40,7 @@ export default function Pagination(props: {
 }) {
   const { limit, search } = useParams();
   const navigate = useNavigate();
+  const paginationLimitOptions = [5, 10, 15];
 
   const handleClick = (props: {
     paginationData: PaginationData | null;
@@ -91,27 +92,16 @@ export default function Pagination(props: {
             &rarr;
           </button>
           <div>
-            <PaginationLimitButton
-              num={5}
-              activeLimit={props.activeLimit}
-              setActiveLimit={props.setActiveLimit}
-              setActivePage={props.setActivePage}
-              setIsLoaded={props.setIsLoaded}
-            />
-            <PaginationLimitButton
-              num={10}
-              activeLimit={props.activeLimit}
-              setActiveLimit={props.setActiveLimit}
-              setActivePage={props.setActivePage}
-              setIsLoaded={props.setIsLoaded}
-            />
-            <PaginationLimitButton
-              num={25}
-              activeLimit={props.activeLimit}
-              setActiveLimit={props.setActiveLimit}
-              setActivePage={props.setActivePage}
-              setIsLoaded={props.setIsLoaded}
-            />
+            {paginationLimitOptions.map((e) => (
+              <PaginationLimitButton
+                key={e}
+                num={e}
+                activeLimit={props.activeLimit}
+                setActiveLimit={props.setActiveLimit}
+                setActivePage={props.setActivePage}
+                setIsLoaded={props.setIsLoaded}
+              />
+            ))}
           </div>
         </div>
       )}
