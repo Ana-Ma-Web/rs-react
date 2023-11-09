@@ -22,8 +22,8 @@ export default function MainPage(props: { error: boolean }) {
     const activeLimit = searchParams.get('limit');
     const searchText = searchParams.get('search');
     const str = `https://api.jikan.moe/v4/characters?limit=${
-      activeLimit ? activeLimit : 5
-    }&page=${activePage ? activePage : 1}&q=${searchText ? searchText : ''}`;
+      activeLimit || 5
+    }&page=${activePage || 1}&q=${searchText || ''}`;
 
     if (!isLoaded) {
       fetch(str)

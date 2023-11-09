@@ -17,14 +17,14 @@ export default function SearchInput(props: {
   const [value, setValue] = useState(searchText);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value ? e.target.value : '');
+    setValue(e.target.value || '');
   };
 
   const handleSubmit = () => {
     if (typeof value === 'string') {
       setSearchParams({
-        search: value ? value : '',
-        limit: limit ? limit : '5',
+        search: value || '',
+        limit: limit || '5',
         page: '1',
       });
       props.setIsLoaded(false);
@@ -40,7 +40,7 @@ export default function SearchInput(props: {
   return (
     <div className="search">
       <input
-        value={value ? value : ''}
+        value={value || ''}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         type="text"
