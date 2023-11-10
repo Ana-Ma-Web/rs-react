@@ -4,7 +4,6 @@ import MainPage from '../../pages/MainPage';
 import Header from '../header/Header';
 
 export default function Layout(props: {
-  isError: boolean;
   setIsError: (isError: boolean) => void;
 }) {
   return (
@@ -12,7 +11,7 @@ export default function Layout(props: {
       <div className="wrapper">
         <main>
           <Header setIsError={props.setIsError} />
-          <MainPage error={props.isError} />
+          <MainPage />
         </main>
       </div>
       <Outlet />

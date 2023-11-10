@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { ErrorContext } from '../App';
 import Pagination from '../components/pagination/Pagination';
 import SearchInput from '../components/search/SearchInput';
 import SearchResults from '../components/search/SearchResults';
 import { PaginationData, SearchItem } from '../types';
 
-export default function MainPage(props: { error: boolean }) {
+export default function MainPage() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [searchErrorMessage, setSearchErrorMessage] = useState('');
@@ -47,20 +48,24 @@ export default function MainPage(props: { error: boolean }) {
   }, [isLoaded, searchParams]);
 
   return (
-    <>
-      <SearchInput setIsLoaded={setIsLoaded} />
-      {!isLoaded && !props.error ? (
-        <div>LOADING</div>
-      ) : (
+    <ErrorContext.Consumer>
+      {({ isError }) => (
         <>
-          <Pagination
-            paginationData={paginationData}
-            setIsLoaded={setIsLoaded}
-          />
-          <SearchResults items={items} />
-          {searchErrorMessage !== '' && <div>{searchErrorMessage}</div>}
+          <SearchInput setIsLoaded={setIsLoaded} />
+          {!isLoaded && !isError ? (
+            <div>LOADING</div>
+          ) : (
+            <>
+              <Pagination
+                paginationData={paginationData}
+                setIsLoaded={setIsLoaded}
+              />
+              <SearchResults items={items} />
+              {searchErrorMessage !== '' && <div>{searchErrorMessage}</div>}
+            </>
+          )}
         </>
       )}
-    </>
+    </ErrorContext.Consumer>
   );
 }

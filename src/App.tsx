@@ -4,6 +4,8 @@ import Layout from './components/layout/Layout';
 import DetailsPage from './pages/DetailsPage';
 import NotFoundPage from './pages/NotFoundPage';
 
+export const ErrorContext = React.createContext({ isError: false });
+
 export default function App() {
   const [isError, setIsError] = useState(false);
 
@@ -15,7 +17,11 @@ export default function App() {
     <Routes>
       <Route
         path="/"
-        element={<Layout isError={isError} setIsError={setIsError} />}
+        element={
+          <ErrorContext.Provider value={{ isError }}>
+            <Layout setIsError={setIsError} />
+          </ErrorContext.Provider>
+        }
       >
         <Route path="/details/:id" element={<DetailsPage />} />
       </Route>
