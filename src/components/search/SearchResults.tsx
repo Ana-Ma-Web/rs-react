@@ -1,18 +1,12 @@
-import React from 'react';
-import { createSearchParams, Link, useSearchParams } from 'react-router-dom';
-import { SearchItem } from '../../types';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { ItemsDataContext } from '../../pages/MainPage';
 
 function Card(props: { name: string; img: string; id: string }) {
-  const [searchParams] = useSearchParams();
-  const page = searchParams.get('page') || '1';
-  const limit = searchParams.get('limit') || '5';
-  const search = searchParams.get('search') || '';
-
   return (
     <Link
       to={{
         pathname: `/details/${props.id}`,
-        search: `?${createSearchParams({ page, limit, search })}`,
       }}
     >
       <div className="card">
@@ -25,13 +19,15 @@ function Card(props: { name: string; img: string; id: string }) {
   );
 }
 
-export default function SearchResults(props: { items: SearchItem[] | null }) {
+export default function SearchResults() {
+  const items = useContext(ItemsDataContext);
+
   return (
     <div className="results">
-      {!Array.isArray(props.items) || props.items.length === 0 ? (
+      {!Array.isArray(items) || items.length === 0 ? (
         <div>NOT FOUND</div>
       ) : (
-        props.items.map((e) => (
+        items.map((e) => (
           <Card
             key={e?.url}
             name={e?.name}

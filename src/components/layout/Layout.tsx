@@ -3,14 +3,12 @@ import { Outlet } from 'react-router-dom';
 import MainPage from '../../pages/MainPage';
 import Header from '../header/Header';
 
-export default function Layout(props: {
-  setIsError: (isError: boolean) => void;
-}) {
+export default function Layout() {
   return (
     <>
       <div className="wrapper">
         <main>
-          <Header setIsError={props.setIsError} />
+          <Header />
           <MainPage />
         </main>
       </div>

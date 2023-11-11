@@ -1,30 +1,66 @@
-import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { ErrorContext } from '../App';
 import Pagination from '../components/pagination/Pagination';
 import SearchInput from '../components/search/SearchInput';
 import SearchResults from '../components/search/SearchResults';
 import { PaginationData, SearchItem } from '../types';
 
+type ItemsDataContextType = SearchItem[] | null;
+export const ItemsDataContext = React.createContext<ItemsDataContextType>(null);
+
+type PaginationDataContextType = null | PaginationData;
+export const PaginationDataContext =
+  React.createContext<PaginationDataContextType>(null);
+
+type SetIsLoadedContextType = Dispatch<SetStateAction<boolean>> | null;
+export const SetIsLoadedContext =
+  React.createContext<SetIsLoadedContextType>(null);
+
+interface SearchDataContextType {
+  text: string;
+  limit: string;
+  page: string;
+}
+export const SearchDataContext = React.createContext<SearchDataContextType>({
+  text: '',
+  limit: '5',
+  page: '1',
+});
+
+type SetSearchDataContextType = Dispatch<
+  SetStateAction<SearchDataContextType>
+> | null;
+export const SetSearchDataContext =
+  React.createContext<SetSearchDataContextType>(null);
+
 export default function MainPage() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [searchErrorMessage, setSearchErrorMessage] = useState('');
 
-  const [items, setItems] = useState<SearchItem[] | null>(null);
+  const [itemsData, setItemsData] = useState<SearchItem[] | null>(null);
   const [paginationData, setPaginationData] = useState<null | PaginationData>(
     null
   );
 
-  const [searchParams] = useSearchParams();
+  const { isError } = useContext(ErrorContext);
+
+  const [searchData, setSearchData] = useState<SearchDataContextType>({
+    text: '',
+    limit: '5',
+    page: '1',
+  });
 
   useEffect(() => {
-    const activePage = searchParams.get('page');
-    const activeLimit = searchParams.get('limit');
-    const searchText = searchParams.get('search');
     const str = `https://api.jikan.moe/v4/characters?limit=${
-      activeLimit || 5
-    }&page=${activePage || 1}&q=${searchText || ''}`;
+      searchData.limit || 5
+    }&page=${searchData.page || 1}&q=${searchData.text || ''}`;
 
     if (!isLoaded) {
       fetch(str)
@@ -37,7 +73,7 @@ export default function MainPage() {
             message: string;
           }) => {
             setIsLoaded(true);
-            setItems(result.data);
+            setItemsData(result.data);
             setPaginationData(result.pagination);
             if (result.status === '429') {
               setSearchErrorMessage('Too Many Requests');
@@ -45,27 +81,32 @@ export default function MainPage() {
           }
         );
     }
-  }, [isLoaded, searchParams]);
+  }, [isLoaded, searchData]);
 
   return (
-    <ErrorContext.Consumer>
-      {({ isError }) => (
-        <>
-          <SearchInput setIsLoaded={setIsLoaded} />
-          {!isLoaded && !isError ? (
-            <div>LOADING</div>
-          ) : (
-            <>
-              <Pagination
-                paginationData={paginationData}
-                setIsLoaded={setIsLoaded}
-              />
-              <SearchResults items={items} />
-              {searchErrorMessage !== '' && <div>{searchErrorMessage}</div>}
-            </>
-          )}
-        </>
-      )}
-    </ErrorContext.Consumer>
+    <>
+      <SearchDataContext.Provider value={searchData}>
+        <SetSearchDataContext.Provider value={setSearchData}>
+          <SetIsLoadedContext.Provider value={setIsLoaded}>
+            <SearchInput />
+            {!isLoaded && !isError ? (
+              <div>LOADING</div>
+            ) : (
+              <>
+                <PaginationDataContext.Provider value={paginationData}>
+                  <Pagination />
+                </PaginationDataContext.Provider>
+
+                <ItemsDataContext.Provider value={itemsData}>
+                  <SearchResults />
+                </ItemsDataContext.Provider>
+
+                {searchErrorMessage !== '' && <div>{searchErrorMessage}</div>}
+              </>
+            )}
+          </SetIsLoadedContext.Provider>
+        </SetSearchDataContext.Provider>
+      </SearchDataContext.Provider>
+    </>
   );
 }

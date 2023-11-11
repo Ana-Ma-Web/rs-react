@@ -1,42 +1,30 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { PaginationData } from '../../types';
+import React, { useContext } from 'react';
+import { PaginationDataContext } from '../../pages/MainPage';
 import PaginationArrowBtn from './PaginationArrowBtn';
 import PaginationLimitButton from './PaginationLimitBtn';
 
-export default function Pagination(props: {
-  paginationData: PaginationData | null;
-  setIsLoaded: Dispatch<SetStateAction<boolean>>;
-}) {
+export default function Pagination() {
   const paginationLimitOptions = [5, 10, 15];
+  const paginationData = useContext(PaginationDataContext);
 
   return (
     <>
-      {props.paginationData !== null && props.paginationData !== undefined && (
-        <div className="pagination">
-          <PaginationArrowBtn
-            type="left"
-            paginationData={props.paginationData}
-            setIsLoaded={props.setIsLoaded}
-          />
-          <div className="pagination__number">
-            {props.paginationData.current_page}
+      {paginationData !== null &&
+        paginationData !== undefined &&
+        paginationData.items.count > 0 && (
+          <div className="pagination">
+            <PaginationArrowBtn type="left" />
+            <div className="pagination__number">
+              {paginationData.current_page}
+            </div>
+            <PaginationArrowBtn type="right" />
+            <div>
+              {paginationLimitOptions.map((e) => (
+                <PaginationLimitButton key={e} limit={e ? e.toString() : '5'} />
+              ))}
+            </div>
           </div>
-          <PaginationArrowBtn
-            type="right"
-            paginationData={props.paginationData}
-            setIsLoaded={props.setIsLoaded}
-          />
-          <div>
-            {paginationLimitOptions.map((e) => (
-              <PaginationLimitButton
-                key={e}
-                limit={e ? e.toString() : '5'}
-                setIsLoaded={props.setIsLoaded}
-              />
-            ))}
-          </div>
-        </div>
-      )}
+        )}
     </>
   );
 }

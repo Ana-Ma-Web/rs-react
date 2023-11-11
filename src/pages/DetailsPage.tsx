@@ -1,18 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {
-  createSearchParams,
-  Link,
-  useParams,
-  useSearchParams,
-} from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ItemDetails } from '../types';
 
 export default function DetailsPage() {
-  const [searchParams] = useSearchParams();
-  const search = searchParams.get('search') || '';
-  const page = searchParams.get('page') || '1';
-  const limit = searchParams.get('limit') || '5';
-
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setData] = useState<ItemDetails | null>(null);
   const id = useParams().id;
@@ -36,14 +26,12 @@ export default function DetailsPage() {
           className="details__overlay"
           to={{
             pathname: '/',
-            search: `?${createSearchParams({ page, limit, search })}`,
           }}
         ></Link>
         <div className="details__wrapper">
           <Link
             to={{
               pathname: '/',
-              search: `?${createSearchParams({ page, limit, search })}`,
             }}
           >
             <button>CLOSE</button>

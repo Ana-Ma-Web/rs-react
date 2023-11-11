@@ -1,43 +1,50 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { PaginationData } from '../../types';
+import React, { useContext } from 'react';
+import {
+  PaginationDataContext,
+  SearchDataContext,
+  SetIsLoadedContext,
+  SetSearchDataContext,
+} from '../../pages/MainPage';
 
-export default function PaginationArrowBtn(props: {
-  type: 'left' | 'right';
-  paginationData: PaginationData;
-  setIsLoaded: Dispatch<SetStateAction<boolean>>;
-}) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const activeLimit = searchParams.get('limit') || '5';
-  const searchText = searchParams.get('search') || '';
+export default function PaginationArrowBtn(props: { type: 'left' | 'right' }) {
+  const setIsLoaded = useContext(SetIsLoadedContext);
+  const paginationData = useContext(PaginationDataContext);
+
+  const searchData = useContext(SearchDataContext);
+  const setSearchData = useContext(SetSearchDataContext);
+
+  const activeLimit = searchData.limit || '5';
+  const searchText = searchData.text || '';
+
   const btnText = props.type === 'left' ? '\u21F7' : '\u21F8';
   const isDisabled =
     props.type === 'left'
-      ? props.paginationData.current_page === 1
-      : props.paginationData.current_page ===
-        props.paginationData.last_visible_page;
+      ? paginationData?.current_page === 1
+      : paginationData?.current_page === paginationData?.last_visible_page;
 
   const handleClick = () => {
-    const oldPage = props.paginationData?.current_page;
+    const oldPage = paginationData?.current_page;
     if (props.type === 'left') {
       if (oldPage) {
         const newPage = oldPage - 1;
-        setSearchParams({
-          page: newPage.toString(),
-          limit: activeLimit,
-          search: searchText,
-        });
-        props.setIsLoaded(false);
+        setSearchData &&
+          setSearchData({
+            page: newPage.toString(),
+            limit: activeLimit,
+            text: searchText,
+          });
+        setIsLoaded && setIsLoaded(false);
       }
     } else {
       if (oldPage) {
         const newPage = oldPage + 1;
-        setSearchParams({
-          page: newPage.toString(),
-          limit: activeLimit,
-          search: searchText,
-        });
-        props.setIsLoaded(false);
+        setSearchData &&
+          setSearchData({
+            page: newPage.toString(),
+            limit: activeLimit,
+            text: searchText,
+          });
+        setIsLoaded && setIsLoaded(false);
       }
     }
   };

@@ -1,20 +1,16 @@
-import React, {
-  ChangeEvent,
-  Dispatch,
-  KeyboardEvent,
-  SetStateAction,
-  useState,
-} from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
+import {
+  SearchDataContext,
+  SetIsLoadedContext,
+  SetSearchDataContext,
+} from '../../pages/MainPage';
 
-export default function SearchInput(props: {
-  setIsLoaded: Dispatch<SetStateAction<boolean>>;
-}) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const searchText = searchParams.get('search');
-  const limit = searchParams.get('limit');
+export default function SearchInput() {
+  const setIsLoaded = useContext(SetIsLoadedContext);
+  const searchData = useContext(SearchDataContext);
+  const setSearchData = useContext(SetSearchDataContext);
 
-  const [value, setValue] = useState(searchText);
+  const [value, setValue] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value || '');
@@ -22,12 +18,14 @@ export default function SearchInput(props: {
 
   const handleSubmit = () => {
     if (typeof value === 'string') {
-      setSearchParams({
-        search: value || '',
-        limit: limit || '5',
-        page: '1',
-      });
-      props.setIsLoaded(false);
+      if (setSearchData) {
+        setSearchData({
+          text: value || '',
+          page: '1',
+          limit: searchData.limit,
+        });
+        setIsLoaded && setIsLoaded(false);
+      }
     }
   };
 

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ErrorContext } from '../../App';
 
-export default function Header(props: {
-  setIsError: (isError: boolean) => void;
-}) {
+export default function Header() {
+  const { setIsError } = useContext(ErrorContext);
+
   const handleClickError = () => {
-    props.setIsError(true);
+    if (setIsError) setIsError(true);
   };
   return (
     <header>

@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import DetailsPage from './pages/DetailsPage';
 import NotFoundPage from './pages/NotFoundPage';
 
-export const ErrorContext = React.createContext({ isError: false });
+interface ErrorContextType {
+  isError: boolean;
+  setIsError: Dispatch<SetStateAction<boolean>> | null;
+}
+
+export const ErrorContext = React.createContext<ErrorContextType>({
+  isError: false,
+  setIsError: null,
+});
 
 export default function App() {
   const [isError, setIsError] = useState(false);
@@ -18,8 +26,8 @@ export default function App() {
       <Route
         path="/"
         element={
-          <ErrorContext.Provider value={{ isError }}>
-            <Layout setIsError={setIsError} />
+          <ErrorContext.Provider value={{ isError, setIsError }}>
+            <Layout />
           </ErrorContext.Provider>
         }
       >
