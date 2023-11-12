@@ -22,18 +22,20 @@ export default function App() {
   }, [isError]);
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <ErrorContext.Provider value={{ isError, setIsError }}>
-            <Layout />
-          </ErrorContext.Provider>
-        }
-      >
-        <Route path="/details/:id" element={<DetailsPage />} />
-      </Route>
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ErrorContext.Provider value={{ isError, setIsError }}>
+              <Layout />
+            </ErrorContext.Provider>
+          }
+        >
+          <Route path="/details/:id" element={<DetailsPage />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </>
   );
 }
