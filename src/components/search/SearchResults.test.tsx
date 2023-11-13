@@ -74,6 +74,7 @@ test('SearchResults message about no cards', async () => {
       </ItemsDataContext.Provider>
     </MemoryRouter>
   );
+  expect(screen.queryByTestId('card')).toBeNull();
   const message = screen.queryByText(/not found/i);
   expect(message).toBeInTheDocument();
   afterEach(cleanup);
