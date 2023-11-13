@@ -11,7 +11,9 @@ export default function Card(props: { name: string; img: string; id: string }) {
         data-testid={'card-link'}
       >
         <div className="card">
-          <div className="card__name">{props.name}</div>
+          <div className="card__name" data-testid="card-name">
+            {props.name}
+          </div>
           <div className="card__description">
             <img src={props.img}></img>
           </div>
