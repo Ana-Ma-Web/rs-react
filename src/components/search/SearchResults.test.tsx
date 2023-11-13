@@ -65,3 +65,16 @@ test('SearchResults renders the specified number of cards', async () => {
   expect(cards.length).toBe(3);
   afterEach(cleanup);
 });
+
+test('SearchResults message about no cards', async () => {
+  render(
+    <MemoryRouter>
+      <ItemsDataContext.Provider value={[]}>
+        <SearchResults />
+      </ItemsDataContext.Provider>
+    </MemoryRouter>
+  );
+  const message = screen.queryByText(/not found/i);
+  expect(message).toBeInTheDocument();
+  afterEach(cleanup);
+});
