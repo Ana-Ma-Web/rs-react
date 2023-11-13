@@ -1,25 +1,8 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { ItemsDataContext } from '../../pages/MainPage';
+import Card from './Card';
 
-function Card(props: { name: string; img: string; id: string }) {
-  return (
-    <Link
-      to={{
-        pathname: `/details/${props.id}`,
-      }}
-    >
-      <div className="card">
-        <div className="card__name">{props.name}</div>
-        <div className="card__description">
-          <img src={props.img}></img>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-export default function SearchResults() {
+export default function () {
   const items = useContext(ItemsDataContext);
 
   return (

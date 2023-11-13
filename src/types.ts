@@ -27,8 +27,8 @@ export interface PaginationData {
 }
 
 export interface ItemDetails {
-  about: string | null;
   name: string;
+  about: string | null;
   favorites: number;
   images: Images;
   mal_id: string;
