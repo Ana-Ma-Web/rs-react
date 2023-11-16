@@ -6,7 +6,7 @@ export default function Card(props: { name: string; img: string; id: string }) {
     <div data-testid={'card'}>
       <Link
         to={{
-          pathname: `/123`,
+          pathname: `/details/${props.id}`,
         }}
         data-testid={'card-link'}
       >
