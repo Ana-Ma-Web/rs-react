@@ -1,14 +1,15 @@
 import React from 'react';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { ItemsDataContext } from '../../pages/MainPage';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import SearchResults from './SearchResults';
 import { SearchItem } from '../../types';
+import DetailsPage from '../../pages/DetailsPage';
 
 const itemsData: SearchItem[] = [
   {
     mal_id: '1',
-    name: '1',
+    name: 'First Item',
     about: '',
     url: '',
     images: {
@@ -77,5 +78,27 @@ test('SearchResults message about no cards', async () => {
   expect(screen.queryByTestId('card')).toBeNull();
   const message = screen.queryByText(/not found/i);
   expect(message).toBeInTheDocument();
+  afterEach(cleanup);
+});
+
+test('Clicking on a card opens a detailed card component', async () => {
+  render(
+    <ItemsDataContext.Provider value={itemsData}>
+      <MemoryRouter initialEntries={['/']}>
+        <Routes>
+          <Route path="/" element={<SearchResults />} />
+          <Route path="/details/:id" element={<DetailsPage />} />
+          {/* <Route path="*" element={<NotFoundPage />} /> */}
+        </Routes>
+      </MemoryRouter>
+    </ItemsDataContext.Provider>
+  );
+  const card = screen.queryByText(/first item/i);
+  expect(card).toBeInTheDocument();
+  if (card) {
+    fireEvent.click(card);
+    expect(screen.getByTestId('details')).toBeInTheDocument();
+  }
+
   afterEach(cleanup);
 });

@@ -3,7 +3,9 @@ import { cleanup, render, screen } from '@testing-library/react';
 import Card from './Card';
 import { MemoryRouter } from 'react-router-dom';
 
-test('check card data', () => {
+afterEach(cleanup);
+
+test('display card data', () => {
   render(
     <MemoryRouter>
       <Card
@@ -16,5 +18,4 @@ test('check card data', () => {
   );
   const name = screen.getByTestId('card-name');
   expect(name.textContent).toMatch('Spike Spiegel');
-  afterEach(cleanup);
 });
