@@ -33,7 +33,7 @@ export default function PaginationLimitBtn(props: { limit: string }) {
   };
 
   return (
-    <button className={className} onClick={handleClick}>
+    <button className={className} onClick={handleClick} data-testid="pag-btn">
       {props.limit}
     </button>
   );
