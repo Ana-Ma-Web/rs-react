@@ -1,18 +1,12 @@
-import React, { useContext } from 'react';
-import {
-  SearchDataContext,
-  SetIsLoadedContext,
-  SetSearchDataContext,
-} from '../../pages/MainPage';
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { searchCharacterDataSlice } from '../../store/reducers/SearchCharacterDataSlice';
 
 export default function PaginationLimitBtn(props: { limit: string }) {
-  const setIsLoaded = useContext(SetIsLoadedContext);
-
-  const searchData = useContext(SearchDataContext);
-  const setSearchData = useContext(SetSearchDataContext);
-
-  const searchText = searchData.text;
-  const activeLimit = searchData.limit || '5';
+  const dispatch = useAppDispatch();
+  const activeLimit = useAppSelector(
+    (state) => state.searchCharacterDataReducer.limit
+  );
 
   const className = `pagination__btn pagination-limit-btn ${
     props.limit && props.limit === activeLimit
@@ -22,13 +16,11 @@ export default function PaginationLimitBtn(props: { limit: string }) {
 
   const handleClick = () => {
     if (props.limit !== activeLimit) {
-      setIsLoaded && setIsLoaded(false);
-      setSearchData &&
-        setSearchData({
-          page: '1',
+      dispatch(
+        searchCharacterDataSlice.actions.setSearchLimit({
           limit: props.limit || '5',
-          text: searchText || '',
-        });
+        })
+      );
     }
   };
 

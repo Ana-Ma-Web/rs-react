@@ -2,7 +2,8 @@ import axios from 'axios';
 import { AppDispatch } from '../store';
 import { ICharacter } from '../../models/ICharacter';
 import { characterSlice } from './CharacterSlice';
-import { PaginationData } from '../../types';
+import { searchCharacterDataSlice } from './SearchCharacterDataSlice';
+import { IPagination } from '../../models/IPagination';
 
 export const fetchCharacters = () => async (dispatch: AppDispatch) => {
   try {
@@ -11,11 +12,14 @@ export const fetchCharacters = () => async (dispatch: AppDispatch) => {
 
     const response = await axios.get<{
       data: ICharacter[];
-      pagination: PaginationData;
+      pagination: IPagination;
     }>(str);
 
     dispatch(
-      characterSlice.actions.charactersFetchingSuccess(response.data.data)
+      characterSlice.actions.charactersFetchingSuccess({
+        data: response.data.data,
+        pagination: response.data.pagination,
+      })
     );
   } catch (error) {
     const knownError = error as Error;
@@ -23,4 +27,12 @@ export const fetchCharacters = () => async (dispatch: AppDispatch) => {
       characterSlice.actions.charactersFetchingError(knownError.message)
     );
   }
+};
+
+export const setError = () => (dispatch: AppDispatch) => {
+  dispatch(characterSlice.actions.setCharactersError('Click error'));
+};
+
+export const setSearchCharacterLimit = () => (dispatch: AppDispatch) => {
+  dispatch(searchCharacterDataSlice.actions.setSearchLimit({ limit: '10' }));
 };

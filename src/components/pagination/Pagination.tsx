@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
-import { PaginationDataContext } from '../../pages/MainPage';
 import PaginationArrowBtn from './PaginationArrowBtn';
 import PaginationLimitButton from './PaginationLimitBtn';
+import { useAppSelector } from '../../hooks/redux';
 
 export default function Pagination() {
   const paginationLimitOptions = [5, 10, 15];
-  const paginationData = useContext(PaginationDataContext);
+  const { paginationData } = useAppSelector((state) => state.characterReducer);
 
   return (
     <>

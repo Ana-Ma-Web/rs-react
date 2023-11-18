@@ -1,11 +1,14 @@
-import React, { useContext } from 'react';
-import { ErrorContext } from '../../App';
+import React from 'react';
+import { useAppDispatch } from '../../hooks/redux';
+import { setError } from '../../store/reducers/ActionCreators';
 
 export default function Header() {
-  const { setIsError } = useContext(ErrorContext);
-
+  const dispatch = useAppDispatch();
+  // const { characters, isLoading } = useAppSelector(
+  //   (state) => state.characterReducer
+  // );
   const handleClickError = () => {
-    if (setIsError) setIsError(true);
+    dispatch(setError());
   };
   return (
     <header>

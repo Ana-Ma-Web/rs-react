@@ -1,15 +1,9 @@
-import React, { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
-import {
-  SearchDataContext,
-  SetIsLoadedContext,
-  SetSearchDataContext,
-} from '../../pages/MainPage';
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { useAppDispatch } from '../../hooks/redux';
+import { searchCharacterDataSlice } from '../../store/reducers/SearchCharacterDataSlice';
 
 export default function SearchInput() {
-  const setIsLoaded = useContext(SetIsLoadedContext);
-  const searchData = useContext(SearchDataContext);
-  const setSearchData = useContext(SetSearchDataContext);
-
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,14 +12,9 @@ export default function SearchInput() {
 
   const handleSubmit = () => {
     if (typeof value === 'string') {
-      if (setSearchData) {
-        setSearchData({
-          text: value || '',
-          page: '1',
-          limit: searchData.limit,
-        });
-        setIsLoaded && setIsLoaded(false);
-      }
+      dispatch(
+        searchCharacterDataSlice.actions.setSearchText({ text: value || '' })
+      );
     }
   };
 

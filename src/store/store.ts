@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import characterReducer from './reducers/CharacterSlice';
+import searchCharacterDataReducer from './reducers/SearchCharacterDataSlice';
 
 const rootReducer = combineReducers({
   characterReducer,
+  searchCharacterDataReducer,
 });
 
 export const setupStore = () => {

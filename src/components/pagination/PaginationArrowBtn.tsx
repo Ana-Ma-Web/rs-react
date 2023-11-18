@@ -1,20 +1,10 @@
-import React, { useContext } from 'react';
-import {
-  PaginationDataContext,
-  SearchDataContext,
-  SetIsLoadedContext,
-  SetSearchDataContext,
-} from '../../pages/MainPage';
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { searchCharacterDataSlice } from '../../store/reducers/SearchCharacterDataSlice';
 
 export default function PaginationArrowBtn(props: { type: 'left' | 'right' }) {
-  const setIsLoaded = useContext(SetIsLoadedContext);
-  const paginationData = useContext(PaginationDataContext);
-
-  const searchData = useContext(SearchDataContext);
-  const setSearchData = useContext(SetSearchDataContext);
-
-  const activeLimit = searchData.limit || '5';
-  const searchText = searchData.text || '';
+  const dispatch = useAppDispatch();
+  const { paginationData } = useAppSelector((state) => state.characterReducer);
 
   const btnText = props.type === 'left' ? '\u21F7' : '\u21F8';
   const isDisabled =
@@ -24,28 +14,22 @@ export default function PaginationArrowBtn(props: { type: 'left' | 'right' }) {
 
   const handleClick = () => {
     const oldPage = paginationData?.current_page;
+    let newPage = 0;
     if (props.type === 'left') {
       if (oldPage) {
-        const newPage = oldPage - 1;
-        setSearchData &&
-          setSearchData({
-            page: newPage.toString(),
-            limit: activeLimit,
-            text: searchText,
-          });
-        setIsLoaded && setIsLoaded(false);
+        newPage = oldPage - 1;
       }
     } else {
       if (oldPage) {
-        const newPage = oldPage + 1;
-        setSearchData &&
-          setSearchData({
-            page: newPage.toString(),
-            limit: activeLimit,
-            text: searchText,
-          });
-        setIsLoaded && setIsLoaded(false);
+        newPage = oldPage + 1;
       }
+    }
+    if (newPage !== oldPage) {
+      dispatch(
+        searchCharacterDataSlice.actions.setSearchPage({
+          page: newPage.toString(),
+        })
+      );
     }
   };
 
