@@ -2,7 +2,7 @@
 // import { cleanup, render, screen } from '@testing-library/react';
 // import Header from './Header';
 
-it('should have animee', () => {
+it('should have anime', () => {
   // render(<Header />);
   // const message = screen.queryByText(/anime/i);
   // // const details = screen.queryByTestId('details');
