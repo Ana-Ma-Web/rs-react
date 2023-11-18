@@ -5,12 +5,9 @@ import { fetchCharacters } from '../../store/reducers/ActionCreators';
 
 export default function SearchResults() {
   const dispatch = useAppDispatch();
-  const { characters, isLoading } = useAppSelector(
-    (state) => state.characterReducer
-  );
+  const { characters } = useAppSelector((state) => state.characterReducer);
 
   useEffect(() => {
-    console.log(isLoading);
     dispatch(fetchCharacters());
   }, []);
 

@@ -17,10 +17,10 @@ export default function MainPage() {
       ) : (
         <>
           <Pagination />
-          <SearchResults />
-          {error !== '' && <div>{error}</div>}
         </>
       )}
+      <SearchResults />
+      {error !== '' && <div>{error}</div>}
     </>
   );
 }
