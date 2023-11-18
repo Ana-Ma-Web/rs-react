@@ -1,16 +1,25 @@
-import React, { useContext } from 'react';
-import { ItemsDataContext } from '../../pages/MainPage';
 import Card from './Card';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useEffect } from 'react';
+import { fetchCharacters } from '../../store/reducers/ActionCreators';
 
-export default function () {
-  const items = useContext(ItemsDataContext);
+export default function SearchResults() {
+  const dispatch = useAppDispatch();
+  const { characters, isLoading } = useAppSelector(
+    (state) => state.characterReducer
+  );
+
+  useEffect(() => {
+    console.log(isLoading);
+    dispatch(fetchCharacters());
+  }, []);
 
   return (
     <div className="results">
-      {!Array.isArray(items) || items.length === 0 ? (
+      {!Array.isArray(characters) || characters.length === 0 ? (
         <div>NOT FOUND</div>
       ) : (
-        items.map((e) => (
+        characters.map((e) => (
           <Card
             key={e?.url}
             name={e?.name}

@@ -9,9 +9,10 @@ import { ErrorContext } from '../App';
 import Pagination from '../components/pagination/Pagination';
 import SearchInput from '../components/search/SearchInput';
 import SearchResults from '../components/search/SearchResults';
-import { PaginationData, SearchItem } from '../types';
+import { PaginationData } from '../types';
+import { ICharacter } from '../models/ICharacter';
 
-type ItemsDataContextType = SearchItem[] | null;
+type ItemsDataContextType = ICharacter[] | null;
 export const ItemsDataContext = React.createContext<ItemsDataContextType>(null);
 
 type PaginationDataContextType = null | PaginationData;
@@ -44,7 +45,7 @@ export default function MainPage() {
 
   const [searchErrorMessage, setSearchErrorMessage] = useState('');
 
-  const [itemsData, setItemsData] = useState<SearchItem[] | null>(null);
+  const [itemsData, setItemsData] = useState<ICharacter[] | null>(null);
   const [paginationData, setPaginationData] = useState<null | PaginationData>(
     null
   );
@@ -67,7 +68,7 @@ export default function MainPage() {
         .then((res) => res.json())
         .then(
           (result: {
-            data: SearchItem[];
+            data: ICharacter[];
             pagination: PaginationData;
             status: string;
             message: string;

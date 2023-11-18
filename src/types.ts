@@ -7,14 +7,6 @@ export interface Images {
     small_image_url: string;
   };
 }
-export interface SearchItem {
-  mal_id: string;
-  name: string;
-  about: string | null;
-  url: string;
-  images: Images;
-}
-
 export interface PaginationData {
   current_page: number;
   has_next_page: boolean;
@@ -24,15 +16,6 @@ export interface PaginationData {
     total: number;
   };
   last_visible_page: number;
-}
-
-export interface ItemDetails {
-  name: string;
-  about: string | null;
-  favorites: number;
-  images: Images;
-  mal_id: string;
-  name_kanji: string | null;
 }
 
 export interface PathData {
