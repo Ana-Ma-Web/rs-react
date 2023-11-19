@@ -1,10 +1,15 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppDispatch } from '../../hooks/redux';
 import { searchCharacterDataSlice } from '../../store/reducers/SearchCharacterDataSlice';
+import { characterAPI } from '../../services/CharacterService';
 
 export default function PaginationArrowBtn(props: { type: 'left' | 'right' }) {
   const dispatch = useAppDispatch();
-  const { paginationData } = useAppSelector((state) => state.characterReducer);
+  const paginationData = characterAPI.useFetchAllCharactersQuery({
+    limit: 5,
+    page: 1,
+    searchText: '',
+  }).data?.pagination;
 
   const btnText = props.type === 'left' ? '\u21F7' : '\u21F8';
   const isDisabled =

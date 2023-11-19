@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react';
 import { characterSlice } from '../../store/reducers/CharacterSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppDispatch } from '../../hooks/redux';
+import { characterAPI } from '../../services/CharacterService';
 
 export default function Header() {
-  const { error } = useAppSelector((state) => state.characterReducer);
+  const { isError, status } = characterAPI.useFetchAllCharactersQuery({
+    limit: 5,
+    page: 1,
+    searchText: '',
+  });
+  console.log('MainPage isError', isError);
   const { setCharactersError } = characterSlice.actions;
   const dispatch = useAppDispatch();
 
@@ -12,9 +18,8 @@ export default function Header() {
   };
 
   useEffect(() => {
-    if (error === 'Something went wrong')
-      throw new Error('Click to error button 🪤');
-  }, [error]);
+    if (status === 'rejected') throw new Error('Click to error button 🪤');
+  }, [isError]);
 
   return (
     <header>

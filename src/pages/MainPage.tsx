@@ -2,17 +2,20 @@ import React from 'react';
 import Pagination from '../components/pagination/Pagination';
 import SearchInput from '../components/search/SearchInput';
 import SearchResults from '../components/search/SearchResults';
-import { useAppSelector } from '../hooks/redux';
+import { characterAPI } from '../services/CharacterService';
 
 export default function MainPage() {
-  const { isLoading, error } = useAppSelector(
-    (state) => state.characterReducer
-  );
+  const { isLoading, isError } = characterAPI.useFetchAllCharactersQuery({
+    limit: 5,
+    page: 1,
+    searchText: '',
+  });
+  console.log('MainPage isError', isError);
 
   return (
     <>
       <SearchInput />
-      {isLoading && !error ? (
+      {isLoading && !isError ? (
         <div>LOADING</div>
       ) : (
         <>
@@ -20,7 +23,7 @@ export default function MainPage() {
         </>
       )}
       <SearchResults />
-      {error !== '' && <div>{error}</div>}
+      {/* {error !== '' && <div>{error}</div>} */}
     </>
   );
 }

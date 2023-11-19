@@ -1,11 +1,17 @@
 import Card from './Card';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppDispatch } from '../../hooks/redux';
 import { useEffect } from 'react';
 import { fetchCharacters } from '../../store/reducers/ActionCreators';
+import { characterAPI } from '../../services/CharacterService';
 
 export default function SearchResults() {
   const dispatch = useAppDispatch();
-  const { characters } = useAppSelector((state) => state.characterReducer);
+  const { data } = characterAPI.useFetchAllCharactersQuery({
+    limit: 5,
+    page: 1,
+    searchText: '',
+  });
+  // const { characters } = useAppSelector((state) => state.characterReducer);
 
   useEffect(() => {
     dispatch(fetchCharacters());
@@ -13,10 +19,10 @@ export default function SearchResults() {
 
   return (
     <div className="results">
-      {!Array.isArray(characters) || characters.length === 0 ? (
+      {!Array.isArray(data?.data) || data?.data.length === 0 ? (
         <div>NOT FOUND</div>
       ) : (
-        characters.map((e) => (
+        data?.data.map((e) => (
           <Card
             key={e?.url}
             name={e?.name}
