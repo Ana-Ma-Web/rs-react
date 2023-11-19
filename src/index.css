@@ -197,12 +197,12 @@ button:focus-visible {
   font-size: 14px;
 }
 
-.details__loading-text {
+.info__loading-text {
   text-align: center;
   font-size: 36px;
 }
 
-.details__loading-img {
+.info__loading-img {
   font-size: 64px;
   width: 88px;
   height: 104px;

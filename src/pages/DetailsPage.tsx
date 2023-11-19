@@ -1,23 +1,12 @@
-import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ICharacter } from '../models/ICharacter';
+import { characterAPI } from '../services/CharacterService';
+import Info from '../components/info/Info';
 
 export default function DetailsPage() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [data, setData] = useState<ICharacter | null>(null);
-  const id = useParams().id;
-
-  useEffect(() => {
-    if (!isLoaded) {
-      fetch(`https://api.jikan.moe/v4/characters/${id}`)
-        .then((res) => res.json())
-        .then((result: { data: ICharacter }) => {
-          setData(result.data);
-          setIsLoaded(true);
-        });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const id = useParams().id || '1';
+  const { data, status, error } = characterAPI.useFetchCharacterDetailsQuery({
+    id,
+  });
 
   return (
     <>
@@ -37,24 +26,19 @@ export default function DetailsPage() {
             <button>CLOSE</button>
           </Link>
 
-          {!isLoaded ? (
+          {status === 'fulfilled' ? (
             <>
-              <div className="details__loading-text">LOADING</div>
-              <div className="details__loading-img">
-                <div>💮</div>
-              </div>
-            </>
-          ) : (
-            <>
-              <h2>{data?.name_kanji}</h2>
+              <h2>{data?.data?.name_kanji}</h2>
               <img
                 className="details__img"
-                src={data?.images.jpg.image_url}
+                src={data?.data?.images.jpg.image_url}
               ></img>
-              <h2>{data?.name}</h2>
-              <div>{data?.about}</div>
+              <h2>{data?.data?.name}</h2>
+              <div>{data?.data?.about}</div>
               <div>id: {id}</div>
             </>
+          ) : (
+            <Info status={status} error={error} />
           )}
         </div>
       </div>

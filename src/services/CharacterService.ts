@@ -22,5 +22,15 @@ export const characterAPI = createApi({
         },
       }),
     }),
+    fetchCharacterDetails: build.query<
+      {
+        data: ICharacter;
+      },
+      { id: string }
+    >({
+      query: (props: { id: string }) => ({
+        url: `/characters/${props.id}`,
+      }),
+    }),
   }),
 });
