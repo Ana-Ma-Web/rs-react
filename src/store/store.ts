@@ -1,11 +1,15 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import errorReducer from './reducers/ErrorSlice';
 import searchCharacterDataReducer from './reducers/SearchCharacterDataSlice';
+import cardsLoadingFlagReducer from './reducers/CardsLoadingFlagSlice';
+import detailsLoadingFlagReducer from './reducers/DetailsLoadingFlagSlice';
 import { characterAPI } from '../services/CharacterService';
 
 const rootReducer = combineReducers({
   errorReducer,
   searchCharacterDataReducer,
+  cardsLoadingFlagReducer,
+  detailsLoadingFlagReducer,
   [characterAPI.reducerPath]: characterAPI.reducer,
 });
 
