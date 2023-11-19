@@ -1,14 +1,13 @@
 import React from 'react';
+import { characterSlice } from '../../store/reducers/CharacterSlice';
 import { useAppDispatch } from '../../hooks/redux';
-import { setError } from '../../store/reducers/ActionCreators';
 
 export default function Header() {
+  const { setCharactersError } = characterSlice.actions;
   const dispatch = useAppDispatch();
-  // const { characters, isLoading } = useAppSelector(
-  //   (state) => state.characterReducer
-  // );
+
   const handleClickError = () => {
-    dispatch(setError());
+    dispatch(setCharactersError('Click error'));
   };
   return (
     <header>

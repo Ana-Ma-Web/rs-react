@@ -6,7 +6,6 @@ export default function Pagination() {
   const paginationLimitOptions = [5, 10, 15];
   const { paginationData } = useAppSelector((state) => state.characterReducer);
 
-  console.log(paginationData);
   return (
     <>
       {paginationData !== null &&
