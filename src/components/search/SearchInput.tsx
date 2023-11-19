@@ -15,6 +15,11 @@ export default function SearchInput() {
       dispatch(
         searchCharacterDataSlice.actions.setSearchText({ text: value || '' })
       );
+      dispatch(
+        searchCharacterDataSlice.actions.setSearchPage({
+          page: '1',
+        })
+      );
     }
   };
 

@@ -1,21 +1,18 @@
 import Card from './Card';
-import { useAppDispatch } from '../../hooks/redux';
-import { useEffect } from 'react';
-import { fetchCharacters } from '../../store/reducers/ActionCreators';
+import { useAppSelector } from '../../hooks/redux';
 import { characterAPI } from '../../services/CharacterService';
 
 export default function SearchResults() {
-  const dispatch = useAppDispatch();
+  const { limit, page, text } = useAppSelector(
+    (state) => state.searchCharacterDataReducer
+  );
+  const numberLimit = Number(limit);
+  const numberPage = Number(page);
   const { data } = characterAPI.useFetchAllCharactersQuery({
-    limit: 5,
-    page: 1,
-    searchText: '',
+    limit: numberLimit,
+    page: numberPage,
+    searchText: text,
   });
-  // const { characters } = useAppSelector((state) => state.characterReducer);
-
-  useEffect(() => {
-    dispatch(fetchCharacters());
-  }, []);
 
   return (
     <div className="results">
