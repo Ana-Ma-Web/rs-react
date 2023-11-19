@@ -19,11 +19,3 @@ export const fetchCharacters = createAsyncThunk(
     }
   }
 );
-
-// export const setError = () => (dispatch: AppDispatch) => {
-//   dispatch(characterSlice.actions.setCharactersError('Click error'));
-// };
-
-// export const setSearchCharacterLimit = () => (dispatch: AppDispatch) => {
-//   dispatch(searchCharacterDataSlice.actions.setSearchLimit({ limit: '10' }));
-// };

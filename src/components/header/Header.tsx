@@ -8,11 +8,12 @@ export default function Header() {
   const dispatch = useAppDispatch();
 
   const handleClickError = () => {
-    dispatch(setCharactersError('Click error'));
+    dispatch(setCharactersError('Something went wrong'));
   };
 
   useEffect(() => {
-    if (error) throw new Error('Click to error button 🪤');
+    if (error === 'Something went wrong')
+      throw new Error('Click to error button 🪤');
   }, [error]);
 
   return (
