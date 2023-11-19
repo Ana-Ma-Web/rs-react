@@ -1,12 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-// import characterReducer from './reducers/CharacterSlice';
+import errorReducer from './reducers/ErrorSlice';
 import searchCharacterDataReducer from './reducers/SearchCharacterDataSlice';
 import { characterAPI } from '../services/CharacterService';
 
 const rootReducer = combineReducers({
-  // characterReducer,
-  [characterAPI.reducerPath]: characterAPI.reducer,
+  errorReducer,
   searchCharacterDataReducer,
+  [characterAPI.reducerPath]: characterAPI.reducer,
 });
 
 export const setupStore = () => {

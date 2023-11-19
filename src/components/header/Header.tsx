@@ -1,25 +1,20 @@
 import React, { useEffect } from 'react';
-import { characterSlice } from '../../store/reducers/CharacterSlice';
-import { useAppDispatch } from '../../hooks/redux';
-import { characterAPI } from '../../services/CharacterService';
+import { errorSlice } from '../../store/reducers/ErrorSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 export default function Header() {
-  const { isError, status } = characterAPI.useFetchAllCharactersQuery({
-    limit: 5,
-    page: 1,
-    searchText: '',
-  });
-  console.log('MainPage isError', isError);
-  const { setCharactersError } = characterSlice.actions;
+  const { error } = useAppSelector((state) => state.errorReducer);
+  const { setCustomError } = errorSlice.actions;
   const dispatch = useAppDispatch();
 
   const handleClickError = () => {
-    dispatch(setCharactersError('Something went wrong'));
+    dispatch(setCustomError('Click to error button'));
   };
 
   useEffect(() => {
-    if (status === 'rejected') throw new Error('Click to error button 🪤');
-  }, [isError]);
+    if (error === 'Click to error button')
+      throw new Error('Click to error button 🪤');
+  }, [error]);
 
   return (
     <header>
