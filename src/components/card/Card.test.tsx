@@ -1,7 +1,7 @@
 import React from 'react';
 import { cleanup, render, screen } from '@testing-library/react';
-import Card from './Card';
 import { MemoryRouter } from 'react-router-dom';
+import Card from './Card';
 
 afterEach(cleanup);
 

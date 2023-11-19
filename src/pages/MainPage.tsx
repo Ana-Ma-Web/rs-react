@@ -1,7 +1,7 @@
 import React from 'react';
 import Pagination from '../components/pagination/Pagination';
 import SearchInput from '../components/search/SearchInput';
-import CardList from '../components/search/CardList';
+import CardList from '../components/card-list/CardList';
 import { characterAPI } from '../services/CharacterService';
 import { useAppSelector } from '../hooks/redux';
 import Info from '../components/info/Info';

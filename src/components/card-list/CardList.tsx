@@ -1,8 +1,8 @@
-import Card from './Card';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { characterAPI } from '../../services/CharacterService';
 import { cardsLoadingFlagSlice } from '../../store/reducers/CardsLoadingFlagSlice';
 import { useEffect } from 'react';
+import Card from '../card/Card';
 
 export default function CardList() {
   const { limit, page, text } = useAppSelector(
