@@ -1,18 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-  cardsLoadingFlag: false,
+  cardsLoadingFlag: true,
 };
 
 export const cardsLoadingFlagSlice = createSlice({
   name: 'cardsLoadingFlag',
   initialState,
   reducers: {
-    setCardsLoadingFlag(state) {
-      state.cardsLoadingFlag = true;
-    },
-    removeCardsLoadingFlag(state) {
-      state.cardsLoadingFlag = false;
+    setCardsLoadingFlag(state, action: PayloadAction<boolean>) {
+      state.cardsLoadingFlag = action.payload;
     },
   },
 });

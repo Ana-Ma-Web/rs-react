@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
   detailsLoadingFlag: false,
@@ -8,11 +8,8 @@ export const detailsLoadingFlagSlice = createSlice({
   name: 'detailsLoadingFlag',
   initialState,
   reducers: {
-    setDetailsLoadingFlag(state) {
-      state.detailsLoadingFlag = true;
-    },
-    removeDetailsLoadingFlag(state) {
-      state.detailsLoadingFlag = false;
+    setDetailsLoadingFlag(state, action: PayloadAction<boolean>) {
+      state.detailsLoadingFlag = action.payload;
     },
   },
 });

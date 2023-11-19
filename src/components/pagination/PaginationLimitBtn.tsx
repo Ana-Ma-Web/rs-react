@@ -2,9 +2,11 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { searchCharacterDataSlice } from '../../store/reducers/SearchCharacterDataSlice';
 import { characterAPI } from '../../services/CharacterService';
+import { cardsLoadingFlagSlice } from '../../store/reducers/CardsLoadingFlagSlice';
 
 export default function PaginationLimitBtn(props: { limit: string }) {
   const dispatch = useAppDispatch();
+  const { setCardsLoadingFlag } = cardsLoadingFlagSlice.actions;
   const { limit, page, text } = useAppSelector(
     (state) => state.searchCharacterDataReducer
   );
@@ -26,6 +28,8 @@ export default function PaginationLimitBtn(props: { limit: string }) {
 
   const handleClick = () => {
     if (props.limit !== activeLimit) {
+      dispatch(setCardsLoadingFlag(true));
+
       dispatch(
         searchCharacterDataSlice.actions.setSearchLimit({
           limit: props.limit || '5',

@@ -2,12 +2,14 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { searchCharacterDataSlice } from '../../store/reducers/SearchCharacterDataSlice';
 import { characterAPI } from '../../services/CharacterService';
+import { cardsLoadingFlagSlice } from '../../store/reducers/CardsLoadingFlagSlice';
 
 export default function PaginationArrowBtn(props: { type: 'left' | 'right' }) {
   const dispatch = useAppDispatch();
   const { limit, page, text } = useAppSelector(
     (state) => state.searchCharacterDataReducer
   );
+  const { setCardsLoadingFlag } = cardsLoadingFlagSlice.actions;
   const numberLimit = Number(limit);
   const numberPage = Number(page);
   const { data } = characterAPI.useFetchAllCharactersQuery({
@@ -36,6 +38,8 @@ export default function PaginationArrowBtn(props: { type: 'left' | 'right' }) {
       }
     }
     if (newPage !== oldPage) {
+      dispatch(setCardsLoadingFlag(true));
+
       dispatch(
         searchCharacterDataSlice.actions.setSearchPage({
           page: newPage.toString(),

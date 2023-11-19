@@ -1,12 +1,22 @@
 import { Link, useParams } from 'react-router-dom';
 import { characterAPI } from '../services/CharacterService';
 import Info from '../components/info/Info';
+import { useAppDispatch } from '../hooks/redux';
+import { detailsLoadingFlagSlice } from '../store/reducers/DetailsLoadingFlagSlice';
+import { useEffect } from 'react';
 
 export default function DetailsPage() {
   const id = useParams().id || '1';
-  const { data, status, error } = characterAPI.useFetchCharacterDetailsQuery({
-    id,
-  });
+  const { data, status, error, isLoading } =
+    characterAPI.useFetchCharacterDetailsQuery({
+      id,
+    });
+
+  const { setDetailsLoadingFlag } = detailsLoadingFlagSlice.actions;
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(setDetailsLoadingFlag(isLoading));
+  }, [data]);
 
   return (
     <>
