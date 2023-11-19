@@ -4,7 +4,7 @@ import { characterAPI } from '../../services/CharacterService';
 import { cardsLoadingFlagSlice } from '../../store/reducers/CardsLoadingFlagSlice';
 import { useEffect } from 'react';
 
-export default function SearchResults() {
+export default function CardList() {
   const { limit, page, text } = useAppSelector(
     (state) => state.searchCharacterDataReducer
   );

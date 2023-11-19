@@ -1,7 +1,7 @@
 import React from 'react';
 import Pagination from '../components/pagination/Pagination';
 import SearchInput from '../components/search/SearchInput';
-import SearchResults from '../components/search/SearchResults';
+import CardList from '../components/search/CardList';
 import { characterAPI } from '../services/CharacterService';
 import { useAppSelector } from '../hooks/redux';
 import Info from '../components/info/Info';
@@ -24,7 +24,7 @@ export default function MainPage() {
       {status === 'fulfilled' ? (
         <>
           <Pagination />
-          <SearchResults />
+          <CardList />
         </>
       ) : (
         <Info status={status} error={error} />
