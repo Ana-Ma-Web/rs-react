@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export default function Card(props: { name: string; img: string; id: string }) {
+  console.log(props);
   return (
     <div data-testid={'card'}>
-      <Link
+      {/* <Link
         to={{
           pathname: `/details/${props.id}`,
         }}
@@ -18,7 +18,7 @@ export default function Card(props: { name: string; img: string; id: string }) {
             <img src={props.img}></img>
           </div>
         </div>
-      </Link>
+      </Link> */}
     </div>
   );
 }
