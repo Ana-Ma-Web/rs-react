@@ -1,23 +1,28 @@
 // import Info from '../app/components/info/Info';
 
-export default function DetailsPage() {
+import Link from 'next/link';
+
+interface Props {
+  params: {
+    id: number;
+  };
+}
+
+export function generateMetadata({ params: { id } }: Props) {
+  return {
+    title: `Details ${id} `,
+  };
+}
+
+export default function DetailsPage({ params: { id } }: Props) {
   return (
     <>
       <div className="details">
-        {/* <Link
-          className="details__overlay"
-          to={{
-            pathname: '/',
-          }}
-        ></Link> */}
+        <Link className="details__overlay" href="/"></Link>
         <div className="details__wrapper">
-          {/* <Link
-            to={{
-              pathname: '/',
-            }}
-          >
-            <button>CLOSE</button>
-          </Link> */}
+          <Link href="/">
+            <button>CLOSE {id}</button>
+          </Link>
 
           {/* {status === 'fulfilled' ? (
             <>
