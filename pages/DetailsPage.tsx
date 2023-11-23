@@ -1,42 +1,25 @@
-import { Link, useParams } from 'react-router-dom';
-import { characterAPI } from '../services/CharacterService';
-import Info from '../components/info/Info';
-import { useAppDispatch } from '../hooks/redux';
-import { detailsLoadingFlagSlice } from '../store/reducers/DetailsLoadingFlagSlice';
-import { useEffect } from 'react';
+// import Info from '../app/components/info/Info';
 
 export default function DetailsPage() {
-  const id = useParams().id || '1';
-  const { data, status, error, isLoading } =
-    characterAPI.useFetchCharacterDetailsQuery({
-      id,
-    });
-
-  const { setDetailsLoadingFlag } = detailsLoadingFlagSlice.actions;
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(setDetailsLoadingFlag(isLoading));
-  }, [data]);
-
   return (
     <>
       <div className="details">
-        <Link
+        {/* <Link
           className="details__overlay"
           to={{
             pathname: '/',
           }}
-        ></Link>
+        ></Link> */}
         <div className="details__wrapper">
-          <Link
+          {/* <Link
             to={{
               pathname: '/',
             }}
           >
             <button>CLOSE</button>
-          </Link>
+          </Link> */}
 
-          {status === 'fulfilled' ? (
+          {/* {status === 'fulfilled' ? (
             <>
               <h2>{data?.data?.name_kanji}</h2>
               <img
@@ -49,7 +32,7 @@ export default function DetailsPage() {
             </>
           ) : (
             <Info status={status} error={error} />
-          )}
+          )} */}
         </div>
       </div>
     </>
