@@ -1,21 +1,17 @@
 import PaginationArrowBtn from './PaginationArrowBtn';
 import PaginationLimitButton from './PaginationLimitBtn';
-import { characterAPI } from '../../services/CharacterService';
-import { useAppSelector } from '../../hooks/redux';
 
 export default function Pagination() {
   const paginationLimitOptions = [5, 10, 15];
-  const { limit, page, text } = useAppSelector(
-    (state) => state.searchCharacterDataReducer
-  );
-  const numberLimit = Number(limit);
-  const numberPage = Number(page);
-  const { data } = characterAPI.useFetchAllCharactersQuery({
-    limit: numberLimit,
-    page: numberPage,
-    searchText: text,
-  });
-  const paginationData = data?.pagination;
+  const paginationData = {
+    limit: '5',
+    page: '1',
+    searchText: '',
+    items: {
+      count: 5,
+    },
+    current_page: '1',
+  };
 
   return (
     <>

@@ -1,5 +1,9 @@
 import React from 'react';
 
+// const handleClick = () => {
+// };
+// throw new Error('Click error');
+
 export default function Header() {
   return (
     <header>

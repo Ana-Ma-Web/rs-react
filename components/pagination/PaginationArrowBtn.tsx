@@ -1,22 +1,20 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { searchCharacterDataSlice } from '../../store/reducers/SearchCharacterDataSlice';
-import { characterAPI } from '../../services/CharacterService';
-import { cardsLoadingFlagSlice } from '../../store/reducers/CardsLoadingFlagSlice';
 
 export default function PaginationArrowBtn(props: { type: 'left' | 'right' }) {
-  const dispatch = useAppDispatch();
-  const { limit, page, text } = useAppSelector(
-    (state) => state.searchCharacterDataReducer
-  );
-  const { setCardsLoadingFlag } = cardsLoadingFlagSlice.actions;
-  const numberLimit = Number(limit);
-  const numberPage = Number(page);
-  const { data } = characterAPI.useFetchAllCharactersQuery({
-    limit: numberLimit,
-    page: numberPage,
-    searchText: text,
-  });
+  const limit = 5;
+  const page = 1;
+  const searchText = '';
+
+  const data = {
+    page,
+    limit,
+    searchText,
+    pagination: {
+      current_page: 1,
+      last_visible_page: 1,
+    },
+  };
+
   const paginationData = data?.pagination;
 
   const btnText = props.type === 'left' ? '\u21F7' : '\u21F8';
@@ -38,13 +36,12 @@ export default function PaginationArrowBtn(props: { type: 'left' | 'right' }) {
       }
     }
     if (newPage !== oldPage) {
-      dispatch(setCardsLoadingFlag(true));
-
-      dispatch(
-        searchCharacterDataSlice.actions.setSearchPage({
-          page: newPage.toString(),
-        })
-      );
+      // dispatch(setCardsLoadingFlag(true));
+      // dispatch(
+      //   searchCharacterDataSlice.actions.setSearchPage({
+      //     page: newPage.toString(),
+      //   })
+      // );
     }
   };
 

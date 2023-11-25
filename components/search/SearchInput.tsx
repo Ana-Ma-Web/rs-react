@@ -1,9 +1,6 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
-import { useAppDispatch } from '../../hooks/redux';
-import { searchCharacterDataSlice } from '../../store/reducers/SearchCharacterDataSlice';
 
 export default function SearchInput() {
-  const dispatch = useAppDispatch();
   const [value, setValue] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -12,14 +9,14 @@ export default function SearchInput() {
 
   const handleSubmit = () => {
     if (typeof value === 'string') {
-      dispatch(
-        searchCharacterDataSlice.actions.setSearchText({ text: value || '' })
-      );
-      dispatch(
-        searchCharacterDataSlice.actions.setSearchPage({
-          page: '1',
-        })
-      );
+      // dispatch(
+      //   searchCharacterDataSlice.actions.setSearchText({ text: value || '' })
+      // );
+      // dispatch(
+      //   searchCharacterDataSlice.actions.setSearchPage({
+      //     page: '1',
+      //   })
+      // );
     }
   };
 
