@@ -14,7 +14,7 @@ export default function Card(props: { name: string; img: string; id: string }) {
             <Image
               alt="character"
               src={props.img}
-              layout="fill"
+              fill={true}
               objectFit="contain"
             ></Image>
           </div>

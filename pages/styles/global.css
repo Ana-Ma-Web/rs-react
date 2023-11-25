@@ -11,8 +11,8 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-start-rgb: 36, 36, 36;
+    --background-end-rgb: 36, 36, 36;
   }
 }
 
@@ -185,6 +185,11 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  height: 200px;
+  /* height: calc(100% - 12px); */
+
+  width: 100px;
 }
 
 .card__description img {
@@ -212,7 +217,7 @@ button:focus-visible {
 
 
 .details__wrapper {
-  background-color: #242424;
+  background-color: rgb(36, 36, 36);
   position: fixed;
   top: 12px;
   right: 12px;
