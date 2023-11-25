@@ -1,6 +1,5 @@
-// import Info from '../app/components/info/Info';
-
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { InferGetServerSidePropsType } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -16,31 +15,25 @@ export function generateMetadata({ params: { id } }: Props) {
   };
 }
 
-export const getServerSideProps = async (context: GetServerSideProps) => {
-  console.log(context);
-  const res = await fetch(`https://api.jikan.moe/v4/characters/${''}`);
+interface GetServerSidePropsParams {
+  params: {
+    id: string;
+  };
+}
+
+export const getServerSideProps = async (context: GetServerSidePropsParams) => {
+  const res = await fetch(
+    `https://api.jikan.moe/v4/characters/${context.params.id}`
+  );
   const item = await res.json();
   return { props: { item } };
 };
 
-export default function DetailsPage({} // item,
-: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function DetailsPage({
+  item,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { query } = useRouter();
   const id = typeof query.id === 'string' ? query.id : '';
-  // const item = await getData({ id });
-  const item = {
-    data: {
-      name: 'iewefdd',
-      name_kanji: 'ojneiuh',
-      about: 'wsoekfwesf enfsoefn sejjd dnd dow sefon',
-      images: {
-        jpg: {
-          image_url:
-            'https://cdn.myanimelist.net/images/characters/11/516853.jpg',
-        },
-      },
-    },
-  };
 
   return (
     <div className="details">
@@ -51,13 +44,13 @@ export default function DetailsPage({} // item,
         </Link>
 
         <h2>{item?.data.name_kanji}</h2>
-        {/* <Image
+        <Image
           alt="character"
           src={item?.data.images.jpg.image_url}
           className="details__img"
           height={200}
           width={200}
-        ></Image> */}
+        ></Image>
         <h2>{item?.data.name}</h2>
         <div>{item?.data.about}</div>
         <div>id: {id}</div>
