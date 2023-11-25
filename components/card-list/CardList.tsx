@@ -25,7 +25,6 @@ export default function CardList(props: { items: ICharacter[] }) {
   // useEffect(() => {
   //   dispatch(setCardsLoadingFlag(isLoading));
   // }, [data]);
-
   return (
     <div className="results">
       {!Array.isArray(props.items) || props.items.length === 0 ? (
