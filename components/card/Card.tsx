@@ -11,7 +11,12 @@ export default function Card(props: { name: string; img: string; id: string }) {
             {props.name}
           </div>
           <div className="card__description">
-            <Image alt="character" src={props.img}></Image>
+            <Image
+              alt="character"
+              src={props.img}
+              layout="fill"
+              objectFit="contain"
+            ></Image>
           </div>
         </div>
       </Link>

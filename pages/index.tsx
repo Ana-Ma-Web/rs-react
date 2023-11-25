@@ -1,14 +1,13 @@
-// import CardList from '@/components/card-list/CardList.jsx';
+import CardList from '@/components/card-list/CardList';
 import { ICharacter } from '@/models/ICharacter';
 
-// export const getServerSideProps = async (context) => {
-//   const res = await fetch('https://api.github.com/repos/vercel/next.js');
-//   const items = await res.json();
-//   return { props: { items } };
-// };
+export const getServerSideProps = async () => {
+  const res = await fetch('https://api.jikan.moe/v4/characters/');
+  const json = await res.json();
+  const data = json.data;
+  return { props: { data } };
+};
 
-export default function HomePage(items: ICharacter[]) {
-  console.log(items);
-  return <></>;
-  // return <CardList items={items} />;
+export default function HomePage(data: { data: ICharacter[] }) {
+  return <CardList items={data.data} />;
 }

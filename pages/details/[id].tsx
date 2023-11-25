@@ -48,8 +48,8 @@ export default function DetailsPage({
           alt="character"
           src={item?.data.images.jpg.image_url}
           className="details__img"
-          height={200}
-          width={200}
+          layout="fill"
+          objectFit="contain"
         ></Image>
         <h2>{item?.data.name}</h2>
         <div>{item?.data.about}</div>
