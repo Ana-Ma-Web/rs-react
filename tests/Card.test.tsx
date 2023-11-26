@@ -1,3 +1,4 @@
+/** @jest-environment jsdom */
 import { cleanup } from '@testing-library/react';
 
 describe('Card', () => {
