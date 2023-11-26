@@ -14,8 +14,11 @@ export default function Card(props: { name: string; img: string; id: string }) {
             <Image
               alt="character"
               src={props.img}
-              fill={true}
-              objectFit="contain"
+              width={0}
+              height={0}
+              sizes="100%"
+              style={{ width: '100%', height: 'auto' }}
+              priority={true}
             ></Image>
           </div>
         </div>
