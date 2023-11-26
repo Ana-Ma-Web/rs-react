@@ -1,17 +1,10 @@
+import { IPagination } from '@/models/IPagination';
 import PaginationArrowBtn from './PaginationArrowBtn';
 import PaginationLimitButton from './PaginationLimitBtn';
 
-export default function Pagination() {
+export default function Pagination(props: { paginationData: IPagination }) {
   const paginationLimitOptions = [5, 10, 15];
-  const paginationData = {
-    limit: '5',
-    page: '1',
-    searchText: '',
-    items: {
-      count: 5,
-    },
-    current_page: '1',
-  };
+  const { paginationData } = props;
 
   return (
     <>
@@ -19,11 +12,11 @@ export default function Pagination() {
         paginationData !== undefined &&
         paginationData.items.count > 0 && (
           <div className="pagination">
-            <PaginationArrowBtn type="left" />
+            <PaginationArrowBtn type="left" paginationData={paginationData} />
             <div className="pagination__number">
               {paginationData.current_page}
             </div>
-            <PaginationArrowBtn type="right" />
+            <PaginationArrowBtn type="right" paginationData={paginationData} />
             <div>
               {paginationLimitOptions.map((e) => (
                 <PaginationLimitButton key={e} limit={e ? e.toString() : '5'} />

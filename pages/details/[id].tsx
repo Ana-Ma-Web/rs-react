@@ -1,6 +1,5 @@
 import RootLayout from '@/components/layout';
-import { ICharacter } from '@/models/ICharacter';
-import { IPagination } from '@/models/IPagination';
+import { DataProps, GetServerSidePropsParams } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -17,47 +16,43 @@ export function generateMetadata({ params: { id } }: Props) {
   };
 }
 
-interface GetServerSidePropsParams {
-  params: {
-    id: string;
-  };
-}
-
 export const getServerSideProps = async (context: GetServerSidePropsParams) => {
+  const { limit, page, searchText } = context.query;
   const res = await fetch(
     `https://api.jikan.moe/v4/characters/${context.params.id}`
   );
   const itemData = await res.json();
 
-  const allRes = await fetch(`https://api.jikan.moe/v4/characters/`);
-  const allData = await allRes.json();
+  const allRes = await fetch(
+    `https://api.jikan.moe/v4/characters/?limit=${limit || '5'}&page=${
+      page || 1
+    }&q=${searchText || ''}`
+  );
+  const data = await allRes.json();
 
-  return { props: { itemData, allData } };
+  return { props: { itemData, data } };
 };
 
-interface DataProps {
-  itemData: { data: ICharacter; status: string };
-  allData: {
-    pagination: IPagination;
-    data: ICharacter[];
-    status: string;
-  };
-}
+export default function DetailsPage({ itemData, data }: DataProps) {
+  const router = useRouter();
+  const { limit, page, searchText } = router.query;
+  const id = typeof router.query.id === 'string' ? router.query.id : '';
 
-export default function DetailsPage({ itemData, allData }: DataProps) {
-  const { query } = useRouter();
-  const id = typeof query.id === 'string' ? query.id : '';
-
-  if (itemData.status === '429' || allData.status === '429') {
+  if (itemData.status === '429' || data.status === '429') {
     throw new Error(
       `Too many requests!! Please do not click more than once per second.`
     );
   }
 
   return (
-    <RootLayout data={allData.data}>
+    <RootLayout data={{ itemData, data }}>
       <div className="details">
-        <Link className="details__overlay" href="/"></Link>
+        <Link
+          className="details__overlay"
+          href={`/?limit=${limit || '5'}&page=${page || 1}&q=${
+            searchText || ''
+          }`}
+        ></Link>
         <div className="details__wrapper">
           <Link href="/">
             <button>CLOSE {id}</button>

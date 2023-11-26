@@ -1,7 +1,8 @@
 // import CardList from '@/components/card-list/CardList';
 import Header from '@/components/header/Header';
-import { ICharacter } from '@/models/ICharacter';
+import { DataProps } from '@/types';
 import CardList from './card-list/CardList';
+import Pagination from './pagination/Pagination';
 // import { ICharacter } from '@/models/ICharacter';
 // import { IPagination } from '@/models/IPagination';
 // import type { Metadata } from 'next';
@@ -39,7 +40,7 @@ export default function RootLayout({
   data,
 }: {
   children?: React.ReactNode;
-  data: ICharacter[];
+  data: DataProps;
 }) {
   return (
     // <html lang="en">
@@ -47,7 +48,8 @@ export default function RootLayout({
     <div className="wrapper">
       <Header />
       {/* <CardList items={await (await getData()).data} /> */}
-      <CardList items={data} />
+      <Pagination paginationData={data.data.pagination} />
+      <CardList items={data.data.data} />
       {children}
     </div>
 

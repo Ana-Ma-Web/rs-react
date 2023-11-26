@@ -1,21 +1,16 @@
+import { IPagination } from '@/models/IPagination';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 
-export default function PaginationArrowBtn(props: { type: 'left' | 'right' }) {
-  const limit = 5;
-  const page = 1;
-  const searchText = '';
+export default function PaginationArrowBtn(props: {
+  type: 'left' | 'right';
+  paginationData: IPagination;
+}) {
+  const router = useRouter();
+  const { limit, searchText } = router.query;
 
-  const data = {
-    page,
-    limit,
-    searchText,
-    pagination: {
-      current_page: 1,
-      last_visible_page: 1,
-    },
-  };
-
-  const paginationData = data?.pagination;
+  const paginationData = props.paginationData;
 
   const btnText = props.type === 'left' ? '\u21F7' : '\u21F8';
   const isDisabled =
@@ -23,37 +18,27 @@ export default function PaginationArrowBtn(props: { type: 'left' | 'right' }) {
       ? paginationData?.current_page === 1
       : paginationData?.current_page === paginationData?.last_visible_page;
 
-  const handleClick = () => {
-    const oldPage = paginationData?.current_page;
-    let newPage = 0;
-    if (props.type === 'left') {
-      if (oldPage) {
-        newPage = oldPage - 1;
-      }
-    } else {
-      if (oldPage) {
-        newPage = oldPage + 1;
-      }
+  const oldPage = paginationData?.current_page;
+  let newPage = 0;
+  if (props.type === 'left') {
+    if (oldPage) {
+      newPage = oldPage - 1;
     }
-    if (newPage !== oldPage) {
-      // dispatch(setCardsLoadingFlag(true));
-      // dispatch(
-      //   searchCharacterDataSlice.actions.setSearchPage({
-      //     page: newPage.toString(),
-      //   })
-      // );
+  } else {
+    if (oldPage) {
+      newPage = oldPage + 1;
     }
-  };
+  }
 
   return (
-    <button
-      className="pagination__btn"
-      disabled={isDisabled}
-      onClick={() => {
-        handleClick();
-      }}
+    <Link
+      href={`?limit=${limit}&page=${newPage ? newPage : oldPage}&q=${
+        searchText || ''
+      }`}
     >
-      {btnText}
-    </button>
+      <button className="pagination__btn" disabled={isDisabled}>
+        {btnText}
+      </button>
+    </Link>
   );
 }
