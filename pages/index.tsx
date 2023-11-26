@@ -1,4 +1,5 @@
-import CardList from '@/components/card-list/CardList';
+// import CardList from '@/components/card-list/CardList';
+import RootLayout from '@/components/layout';
 import { ICharacter } from '@/models/ICharacter';
 
 export const getServerSideProps = async () => {
@@ -9,5 +10,10 @@ export const getServerSideProps = async () => {
 };
 
 export default function HomePage(data: { data: ICharacter[] }) {
-  return <CardList items={data.data} />;
+  return (
+    <>
+      <RootLayout data={data.data}></RootLayout>
+      {/* <CardList items={data.data} />; */}
+    </>
+  );
 }

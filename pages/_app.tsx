@@ -1,5 +1,4 @@
 import { JSXElementConstructor } from 'react';
-import Layout from '../components/layout';
 import './styles/global.css';
 
 export default function MyApp(props: {
@@ -8,8 +7,8 @@ export default function MyApp(props: {
 }) {
   const { Component, pageProps } = props;
   return (
-    <Layout>
+    <div className="AAAAAAAAAAAAAAAA">
       <Component {...pageProps} />
-    </Layout>
+    </div>
   );
 }

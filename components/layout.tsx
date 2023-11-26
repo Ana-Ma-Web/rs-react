@@ -1,5 +1,7 @@
 // import CardList from '@/components/card-list/CardList';
 import Header from '@/components/header/Header';
+import { ICharacter } from '@/models/ICharacter';
+import CardList from './card-list/CardList';
 // import { ICharacter } from '@/models/ICharacter';
 // import { IPagination } from '@/models/IPagination';
 // import type { Metadata } from 'next';
@@ -34,8 +36,10 @@ import Header from '@/components/header/Header';
 
 export default function RootLayout({
   children,
+  data,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  data: ICharacter[];
 }) {
   return (
     // <html lang="en">
@@ -43,6 +47,7 @@ export default function RootLayout({
     <div className="wrapper">
       <Header />
       {/* <CardList items={await (await getData()).data} /> */}
+      <CardList items={data} />
       {children}
     </div>
 
