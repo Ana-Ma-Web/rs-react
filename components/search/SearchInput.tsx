@@ -1,39 +1,32 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { KeyboardEvent, useRef } from 'react';
 
 export default function SearchInput() {
-  const [value, setValue] = useState('');
+  const router = useRouter();
+  const { limit, q } = router.query;
+  const oldSearchText = q;
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value || '');
-  };
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleSubmit = () => {
-    if (typeof value === 'string') {
-      // dispatch(
-      //   searchCharacterDataSlice.actions.setSearchText({ text: value || '' })
-      // );
-      // dispatch(
-      //   searchCharacterDataSlice.actions.setSearchPage({
-      //     page: '1',
-      //   })
-      // );
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleSubmit();
     }
   };
 
+  const handleSubmit = () => {
+    const newSearchText2 = inputRef.current?.value || '';
+    router.push(`?limit=${limit ? limit : 5}&page=${1}&q=${newSearchText2}`);
+  };
+
   return (
     <div className="search">
       <input
-        value={value || ''}
-        onChange={handleChange}
+        defaultValue={oldSearchText}
         onKeyDown={handleKeyDown}
         type="text"
         aria-label="search"
+        ref={inputRef}
       />
       <button onClick={handleSubmit}>Search</button>
     </div>

@@ -1,10 +1,10 @@
 // import CardList from '@/components/card-list/CardList';
 import RootLayout from '@/components/layout';
 import { DataProps, GetServerSidePropsParams } from '@/types';
-// import { useRouter } from 'next/router';
 
 export const getServerSideProps = async (context: GetServerSidePropsParams) => {
-  const { limit, page, searchText } = context.query;
+  const { limit, page, q } = context.query;
+  const searchText = q;
 
   const res = await fetch(
     `https://api.jikan.moe/v4/characters/?limit=${limit || '5'}&page=${
@@ -17,12 +17,9 @@ export const getServerSideProps = async (context: GetServerSidePropsParams) => {
 };
 
 export default function HomePage(data: DataProps) {
-  // const { query } = useRouter();
-
   return (
     <>
       <RootLayout data={data}></RootLayout>
-      {/* <CardList items={data.data} />; */}
     </>
   );
 }

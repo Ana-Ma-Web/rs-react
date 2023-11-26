@@ -3,6 +3,7 @@ import Header from '@/components/header/Header';
 import { DataProps } from '@/types';
 import CardList from './card-list/CardList';
 import Pagination from './pagination/Pagination';
+import SearchInput from './search/SearchInput';
 // import { ICharacter } from '@/models/ICharacter';
 // import { IPagination } from '@/models/IPagination';
 // import type { Metadata } from 'next';
@@ -48,6 +49,7 @@ export default function RootLayout({
     <div className="wrapper">
       <Header />
       {/* <CardList items={await (await getData()).data} /> */}
+      <SearchInput />
       <Pagination paginationData={data.data.pagination} />
       <CardList items={data.data.data} />
       {children}

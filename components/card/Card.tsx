@@ -5,7 +5,8 @@ import React from 'react';
 
 export default function Card(props: { name: string; img: string; id: string }) {
   const router = useRouter();
-  const { limit, page, searchText } = router.query;
+  const { limit, page, q } = router.query;
+  const searchText = q;
 
   return (
     <div data-testid={'card'}>

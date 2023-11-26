@@ -8,7 +8,8 @@ export default function PaginationArrowBtn(props: {
   paginationData: IPagination;
 }) {
   const router = useRouter();
-  const { limit, searchText } = router.query;
+  const { limit, q } = router.query;
+  const searchText = q;
 
   const paginationData = props.paginationData;
 
@@ -32,9 +33,9 @@ export default function PaginationArrowBtn(props: {
 
   return (
     <Link
-      href={`?limit=${limit}&page=${newPage ? newPage : oldPage}&q=${
-        searchText || ''
-      }`}
+      href={`?limit=${limit ? limit : 5}&page=${
+        newPage ? newPage : oldPage
+      }&q=${searchText || ''}`}
     >
       <button className="pagination__btn" disabled={isDisabled}>
         {btnText}

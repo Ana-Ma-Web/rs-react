@@ -4,7 +4,8 @@ import React from 'react';
 
 export default function PaginationLimitBtn(props: { limit: string }) {
   const router = useRouter();
-  const { limit, searchText } = router.query;
+  const { limit, q } = router.query;
+  const searchText = q;
 
   const activeLimit = limit;
   const newLimit = props.limit;

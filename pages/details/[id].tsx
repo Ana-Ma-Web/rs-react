@@ -17,7 +17,8 @@ export function generateMetadata({ params: { id } }: Props) {
 }
 
 export const getServerSideProps = async (context: GetServerSidePropsParams) => {
-  const { limit, page, searchText } = context.query;
+  const { limit, page, q } = context.query;
+  const searchText = q;
   const res = await fetch(
     `https://api.jikan.moe/v4/characters/${context.params.id}`
   );

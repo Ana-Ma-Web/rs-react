@@ -24,7 +24,7 @@ export interface GetServerSidePropsParams {
   query: {
     limit: string;
     page: string;
-    searchText: string;
+    q: string;
   };
 }
 
