@@ -168,10 +168,24 @@ export default function ControlledFormPage() {
 
           <div className="form__item">
             <span>Password:</span>
+            <input
+              {...register('password', { required: true })}
+              placeholder="password"
+            />
+            {errors.password && (
+              <div className="form__error">This field is required</div>
+            )}
           </div>
 
           <div className="form__item">
             <span>TC accept:</span>
+            <input
+              {...register('tcAccept', { required: true })}
+              type="checkbox"
+            />
+            {errors.tcAccept && (
+              <div className="form__error">This field is required</div>
+            )}
           </div>
 
           <input type="submit" />

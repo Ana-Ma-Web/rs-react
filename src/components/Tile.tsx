@@ -26,6 +26,10 @@ export default function Tile(props: { data: IUser }) {
             <div>gender:</div>
             <div>{props.data.gender}</div>
           </div>
+          <div className="tile__row">
+            <div>password🙈:</div>
+            <div>{props.data.password}</div>
+          </div>
           <img src={props.data.imgBase64} />
         </div>
       </div>
