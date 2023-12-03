@@ -1,10 +1,10 @@
 export interface IUser {
-  name: string;
   age: number;
-  email: string;
-  password: string;
-  gender: 'male' | 'female' | 'cat' | 'other';
-  tcAccept: boolean;
-  imgBase64: string;
   country: string;
+  email: string;
+  gender: 'male' | 'female' | 'cat' | 'other';
+  imgBase64: string;
+  name: string;
+  password: string;
+  tcAccept: boolean;
 }
