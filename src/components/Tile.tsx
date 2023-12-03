@@ -11,10 +11,6 @@ export default function Tile(props: { data: IUser }) {
             <div>{props.data.name}</div>
           </div>
           <div className="tile__row">
-            <div>name:</div>
-            <div>{props.data.name}</div>
-          </div>
-          <div className="tile__row">
             <div>age:</div>
             <div>{props.data.age}</div>
           </div>

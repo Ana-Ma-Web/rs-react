@@ -1,11 +1,9 @@
 import React, { RefObject } from 'react';
-import { useAppSelector } from '../hooks/redux';
+import Datalist from './Datalist';
 
 export default function CountryAutocomplete(props: {
   inputCountryRef: RefObject<HTMLInputElement>;
 }) {
-  const { data } = useAppSelector((state) => state.countriesReducer);
-
   return (
     <div>
       <label>
@@ -16,11 +14,7 @@ export default function CountryAutocomplete(props: {
           type="text"
           ref={props.inputCountryRef}
         />
-        <datalist id="countryList">
-          {data.map((e) => (
-            <option key={e} value={e} />
-          ))}
-        </datalist>
+        <Datalist />
       </label>
     </div>
   );

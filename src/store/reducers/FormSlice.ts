@@ -1,18 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser } from '../../models/IUser';
 
-const initialState: IUser[] = [
-  {
-    name: '',
-    age: 0,
-    country: '',
-    email: '',
-    gender: 'cat',
-    imgBase64: '',
-    password: '',
-    tcAccept: false,
-  },
-];
+const initialState: IUser[] = [];
 
 export const formSlice = createSlice({
   name: 'form',

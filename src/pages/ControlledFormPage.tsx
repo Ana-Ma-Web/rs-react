@@ -1,13 +1,18 @@
 import React, { ChangeEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useAppDispatch } from '../hooks/redux';
 import { IUser } from '../models/IUser';
 import { setBase64 } from '../utils/setBase64';
 import { formSlice } from '../store/reducers/FormSlice';
+import Datalist from '../components/Datalist';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { UserSchema } from '../utils/yup';
 
 export default function ControlledFormPage() {
   const { addForm } = formSlice.actions;
+  const [isRedirect, setIsRedirect] = useState(false);
+
   const dispatch = useAppDispatch();
 
   const {
@@ -15,7 +20,7 @@ export default function ControlledFormPage() {
     handleSubmit,
     // watch,
     formState: { errors },
-  } = useForm<IUser>();
+  } = useForm<IUser>({ resolver: yupResolver(UserSchema) });
   const [imageData, setImageData] = useState('');
 
   const onSubmit: SubmitHandler<IUser> = (data) => {
@@ -31,6 +36,7 @@ export default function ControlledFormPage() {
         tcAccept: data.tcAccept,
       })
     );
+    setIsRedirect(true);
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +46,7 @@ export default function ControlledFormPage() {
 
   return (
     <>
+      {isRedirect && <Navigate to="/" replace={true} />}
       <div className="wrapper">
         <h1>ControlledFormPage</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -57,6 +64,16 @@ export default function ControlledFormPage() {
 
           <div className="form__item">
             <span>Country:</span>
+            <input
+              {...register('country', { required: true })}
+              placeholder="country"
+              type="text"
+              list="countryList"
+            />
+            <Datalist />
+            {errors.country && (
+              <div className="form__error">This field is required</div>
+            )}
           </div>
 
           <div className="form__item">

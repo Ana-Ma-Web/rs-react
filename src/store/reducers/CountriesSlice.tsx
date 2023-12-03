@@ -4,7 +4,7 @@ interface InitialState {
   data: string[];
 }
 
-const initialState: InitialState = {
+export const allCountries = {
   data: [
     'Afghanistan',
     'Albania',
@@ -213,6 +213,8 @@ const initialState: InitialState = {
     'Zimbabwe',
   ],
 };
+
+const initialState: InitialState = allCountries;
 
 export const controlledFormSlice = createSlice({
   name: 'controlledForm',

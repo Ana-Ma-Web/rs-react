@@ -1,5 +1,5 @@
 import React, { MouseEvent, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import CountryAutocomplete from '../components/CountryAutocomplete';
 import GenderInput from '../components/GenderInput';
 import ImageInput from '../components/ImageInput';
@@ -18,6 +18,7 @@ export default function UncontrolledFormPage() {
   const inputTCAcceptRef = useRef<HTMLInputElement>(null);
 
   const [imageData, setImageData] = useState('');
+  const [isRedirect, setIsRedirect] = useState(false);
 
   const handleSubmit = async (formData: MouseEvent) => {
     formData.preventDefault();
@@ -51,10 +52,12 @@ export default function UncontrolledFormPage() {
           : true,
       })
     );
+    setIsRedirect(true);
   };
 
   return (
     <>
+      {isRedirect && <Navigate to="/" replace={true} />}
       <div className="wrapper">
         <h1>UncontrolledFormPage</h1>
         <form>
