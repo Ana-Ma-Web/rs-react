@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../hooks/redux';
 import { IUser } from '../models/IUser';
 import { setBase64 } from '../utils/setBase64';
-import { controlledFormSlice } from '../store/reducers/ControlledFormSlice';
+import { formSlice } from '../store/reducers/FormSlice';
 
 export default function ControlledFormPage() {
-  const { setControlledForm } = controlledFormSlice.actions;
+  const { addForm } = formSlice.actions;
   const dispatch = useAppDispatch();
 
   const {
@@ -20,7 +20,7 @@ export default function ControlledFormPage() {
 
   const onSubmit: SubmitHandler<IUser> = (data) => {
     dispatch(
-      setControlledForm({
+      addForm({
         age: data.age,
         country: data.country,
         email: data.email,
@@ -41,7 +41,7 @@ export default function ControlledFormPage() {
   return (
     <>
       <div className="wrapper">
-        <h1>UncontrolledFormPage</h1>
+        <h1>ControlledFormPage</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form__item">
             <span>Age:</span>

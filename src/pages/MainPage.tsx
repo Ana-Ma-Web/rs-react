@@ -4,23 +4,23 @@ import Tile from '../components/Tile';
 import { useAppSelector } from '../hooks/redux';
 
 export default function MainPage() {
-  const uncontrolledData = useAppSelector(
-    (state) => state.uncontrolledFormReducer.data
-  );
-  const controlledData = useAppSelector(
-    (state) => state.controlledFormReducer.data
-  );
+  const data = useAppSelector((state) => state.formReducer);
+
   return (
     <>
       <div className="wrapper">
         <h1>MainPage</h1>
+        <nav className="nav">
+          <Link to={`/uncontrolled`}>uncontrolled</Link>
+          <Link to={`/controlled`}>controlled</Link>
+        </nav>
         <div className="tiles">
-          <Link className="tile-wrapper" to={`/uncontrolled`}>
-            <Tile data={uncontrolledData} type="uncontrolled" />
-          </Link>
-          <Link className="tile-wrapper" to={`/controlled`}>
+          {data.map((e, i) => (
+            <Tile key={i} data={e} />
+          ))}
+          {/* <Link className="tile-wrapper" to={`/controlled`}>
             <Tile data={controlledData} type="controlled" />
-          </Link>
+          </Link> */}
         </div>
       </div>
     </>

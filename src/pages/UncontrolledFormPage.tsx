@@ -4,10 +4,10 @@ import CountryAutocomplete from '../components/CountryAutocomplete';
 import GenderInput from '../components/GenderInput';
 import ImageInput from '../components/ImageInput';
 import { useAppDispatch } from '../hooks/redux';
-import { uncontrolledFormSlice } from '../store/reducers/UncontrolledFormSlice';
+import { formSlice } from '../store/reducers/FormSlice';
 
 export default function UncontrolledFormPage() {
-  const { setUncontrolledForm } = uncontrolledFormSlice.actions;
+  const { addForm } = formSlice.actions;
   const dispatch = useAppDispatch();
   const inputAgeRef = useRef<HTMLInputElement>(null);
   const inputCountryRef = useRef<HTMLInputElement>(null);
@@ -28,7 +28,7 @@ export default function UncontrolledFormPage() {
         ? inputGenderRef.current?.value
         : 'cat';
     dispatch(
-      setUncontrolledForm({
+      addForm({
         age: inputAgeRef.current?.value
           ? Number(inputAgeRef.current?.value)
           : 0,

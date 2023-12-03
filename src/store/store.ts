@@ -1,11 +1,9 @@
 import countriesReducer from './reducers/CountriesSlice';
-import uncontrolledFormReducer from './reducers/UncontrolledFormSlice';
-import controlledFormReducer from './reducers/ControlledFormSlice';
+import formReducer from './reducers/FormSlice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
-  controlledFormReducer,
-  uncontrolledFormReducer,
+  formReducer,
   countriesReducer,
 });
 

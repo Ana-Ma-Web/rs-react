@@ -1,16 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { IUser } from '../models/IUser';
 
-export default function Tile(props: {
-  data: IUser;
-  type: 'controlled' | 'uncontrolled';
-}) {
+export default function Tile(props: { data: IUser }) {
   return (
     <>
       <div className="tile">
-        <h2 className="tile__title">{props.type}</h2>
-        <Link to={`/${props.type}`}>To {props.type} form</Link>
         <div className="tile__content">
           <div className="tile__row">
             <div>name:</div>
@@ -36,6 +30,7 @@ export default function Tile(props: {
             <div>gender:</div>
             <div>{props.data.gender}</div>
           </div>
+          <img src={props.data.imgBase64} />
         </div>
       </div>
     </>
