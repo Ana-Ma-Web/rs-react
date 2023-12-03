@@ -140,3 +140,12 @@ button:focus-visible {
 .tile:hover {
   border: 1px solid #cf6ab1;
 }
+
+.form__item {
+  display: flex;
+  gap: 10px
+}
+
+.form__error {
+  color: #ff7ca6;
+}

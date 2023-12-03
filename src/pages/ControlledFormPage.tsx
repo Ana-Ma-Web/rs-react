@@ -1,24 +1,167 @@
-import React from 'react';
-// import { controlledFormSlice } from '../store/reducers/ControlledFormSlice';
+import React, { ChangeEvent, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../hooks/redux';
+import { IUser } from '../models/IUser';
+import { setBase64 } from '../utils/setBase64';
+import { controlledFormSlice } from '../store/reducers/ControlledFormSlice';
 
 export default function ControlledFormPage() {
-  // const { setControlledForm } = controlledFormSlice.actions;
-  // const inputName = React.createRef();
+  const { setControlledForm } = controlledFormSlice.actions;
+  const dispatch = useAppDispatch();
 
-  // const handleSubmit = (e) => {
-  //   console.log(e);
-  //   setControlledForm();
-  // };
+  const {
+    register,
+    handleSubmit,
+    // watch,
+    formState: { errors },
+  } = useForm<IUser>();
+  const [imageData, setImageData] = useState('');
+
+  const onSubmit: SubmitHandler<IUser> = (data) => {
+    dispatch(
+      setControlledForm({
+        age: data.age,
+        country: data.country,
+        email: data.email,
+        gender: data.gender,
+        imgBase64: imageData,
+        name: data.name,
+        password: data.password,
+        tcAccept: data.tcAccept,
+      })
+    );
+  };
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(imageData);
+    setBase64({ files: e.target.files, setImageData: setImageData });
+  };
+
   return (
     <>
-      {/* <h1>ControlledFormPage</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input type="text" ref={inputName} />{' '}
-        </label>
-        <input type="submit" value="Submit" />
-      </form> */}
+      <div className="wrapper">
+        <h1>UncontrolledFormPage</h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="form__item">
+            <span>Age:</span>
+            <input
+              {...register('age', { required: true })}
+              placeholder="age"
+              type="number"
+            />
+            {errors.age && (
+              <div className="form__error">This field is required</div>
+            )}
+          </div>
+
+          <div className="form__item">
+            <span>Country:</span>
+          </div>
+
+          <div className="form__item">
+            <span>Email:</span>
+
+            <input
+              {...register('email', {
+                required: true,
+                pattern:
+                  /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u,
+              })}
+              placeholder="email"
+            />
+            {errors.email && (
+              <div className="form__error">Please enter valid email</div>
+            )}
+          </div>
+
+          <div className="form__item">
+            <span>Gender:</span>
+            <div>
+              <label>
+                <input
+                  {...register('gender', { required: true })}
+                  placeholder="gender"
+                  type="radio"
+                  name="gender"
+                  value="cat"
+                />
+                Cat
+              </label>
+              <label>
+                <input
+                  {...register('gender', { required: true })}
+                  placeholder="gender"
+                  type="radio"
+                  name="gender"
+                  value="male"
+                />
+                Male
+              </label>
+              <label>
+                <input
+                  {...register('gender', { required: true })}
+                  placeholder="gender"
+                  type="radio"
+                  name="gender"
+                  value="female"
+                />
+                Female
+              </label>
+              <label>
+                <input
+                  {...register('gender', { required: true })}
+                  placeholder="gender"
+                  type="radio"
+                  name="gender"
+                  value="other"
+                />
+                Other
+              </label>
+            </div>
+            {errors.gender && (
+              <div className="form__error">This field is required</div>
+            )}
+          </div>
+
+          <div className="form__item">
+            <span>Image:</span>
+            <input
+              {...register('imgBase64', { required: true })}
+              placeholder="image"
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={handleImageChange}
+            />
+            {errors.imgBase64 && (
+              <div className="form__error">This field is required</div>
+            )}
+          </div>
+
+          <div className="form__item">
+            <span>Name:</span>
+            <input
+              {...register('name', { required: true })}
+              placeholder="name"
+            />
+            {errors.name && (
+              <div className="form__error">This field is required</div>
+            )}
+          </div>
+
+          <div className="form__item">
+            <span>Password:</span>
+          </div>
+
+          <div className="form__item">
+            <span>TC accept:</span>
+          </div>
+
+          <input type="submit" />
+          {/* <input onSubmit={handleSubmit} type="submit" value="Submit" /> */}
+        </form>
+        <Link to={'/'}>Home</Link>
+      </div>
     </>
   );
 }
